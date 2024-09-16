@@ -1,5 +1,13 @@
 # Backlog
 
+## 2024-09-16
+https://gym-trading-env.readthedocs.io/en/latest/
+
+https://github.com/AI4Finance-Foundation/FinRL
+https://github.com/AI4Finance-Foundation/ElegantRL
+https://github.com/AI4Finance-Foundation/FinRL-Tutorials
+https://github.com/AI4Finance-Foundation/FinRL-Trading
+
 ## 2024-09-07
 
 ### Books to review
