@@ -1,7 +1,11 @@
 # vertr-ml
 
 
-## Git Hub Repos
+## Basic RL
+
+- https://github.com/PacktPublishing/Tensorflow-2-Reinforcement-Learning-Cookbook
+- https://github.com/PacktPublishing/PyTorch-1.x-Reinforcement-Learning-Cookbook
+- https://github.com/PacktPublishing/Reinforcement-Learning-Algorithms-with-Python
 
 
 
