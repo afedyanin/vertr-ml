@@ -8,6 +8,12 @@ https://github.com/AI4Finance-Foundation/ElegantRL
 https://github.com/AI4Finance-Foundation/FinRL-Tutorials
 https://github.com/AI4Finance-Foundation/FinRL-Trading
 
+## GPU
+https://developer.nvidia.com/isaac-gym
+https://developer.nvidia.com/isaac/sim#isaac-lab
+https://arxiv.org/abs/2108.10470
+
+
 ## 2024-09-07
 
 ### Books to review
