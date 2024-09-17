@@ -1,5 +1,14 @@
 # Backlog
 
+## 2024-09-17
+
+### backtrader
+
+- https://github.com/mementum/backtrader
+- https://www.backtrader.com/blog/
+- https://www.backtrader.com/docu/
+
+
 ## 2024-09-16
 https://gym-trading-env.readthedocs.io/en/latest/
 
