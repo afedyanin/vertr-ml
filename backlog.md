@@ -13,7 +13,8 @@
 - Basic approach from Jansen Book
 - RL in Finance book review
 - TF Board - уметь использовать
-- MDS standalone service + Python API
+- MDS: standalone service + Python API
+- MDS: Trades, LOB and Candles in Grafana dashboard
 - Portfolio Estimation & Performance as Service 
 
 ### Идеи для проработки
