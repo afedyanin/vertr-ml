@@ -1,5 +1,10 @@
 # 2025-01-26
 
+## TODO
+
+- [ ] Web API Design
+- [ ] DAL (SqlAlchemy?)
+
 ## Fast API
 
  - [tutorial](https://fastapi.tiangolo.com/tutorial/)
