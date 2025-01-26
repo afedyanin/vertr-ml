@@ -5,6 +5,16 @@
 - [ ] Web API Design
 - [ ] DAL (SqlAlchemy?)
 
+## BLOBS
+- 
+- [Storing a BLOB in a PostgreSQL Database using Python](https://www.geeksforgeeks.org/storing-a-blob-in-a-postgresql-database-using-python/)
+- https://stackoverflow.com/questions/1779701/example-using-blob-in-sqlalchemy
+- [Attaching Images](https://sqlalchemy-imageattach.readthedocs.io/en/0.8.0/guide/context.html)
+
+## SQLAlchemy
+
+- [docs](https://docs.sqlalchemy.org/en/20/)
+
 ## Books
 
 - [Building-Python-Web-APIs-with-FastAPI](https://github.com/PacktPublishing/Building-Python-Web-APIs-with-FastAPI)
