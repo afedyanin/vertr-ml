@@ -5,6 +5,12 @@
 - [ ] Web API Design
 - [ ] DAL (SqlAlchemy?)
 
+## Books
+
+- [Building-Python-Web-APIs-with-FastAPI](https://github.com/PacktPublishing/Building-Python-Web-APIs-with-FastAPI)
+- [Building-Python-Microservices-with-FastAPI](https://github.com/PacktPublishing/Building-Python-Microservices-with-FastAPI)
+- [Building-Data-Science-Applications-with-FastAPI-Second-Edition](https://github.com/PacktPublishing/Building-Data-Science-Applications-with-FastAPI-Second-Edition)
+
 ## Fast API
 
  - [tutorial](https://fastapi.tiangolo.com/tutorial/)
