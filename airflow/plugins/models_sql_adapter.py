@@ -106,7 +106,7 @@ class ModelsSqlAdapter:
                      model.algo,
                      model.version,
                      model.description,
-                     model.content))
+                     psycopg.Binary(model.content)))
                 conn.commit()
 
     @staticmethod
