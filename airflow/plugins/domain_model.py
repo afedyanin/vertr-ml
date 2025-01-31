@@ -296,3 +296,23 @@ class PositionSnapshot:
     balance: decimal
 
 
+@dataclass
+class Model:
+    id: uuid
+    time_utc: datetime
+    file_name: str
+    algo: str
+    version: int
+    description: str
+    content: bytes
+
+    @staticmethod
+    def from_dict(model: dict[str, Any]) -> "Model":
+        return Model(
+            id=model['id'],
+            time_utc=model['time_utc'],
+            file_name=model['file_name'],
+            algo=model['algo'],
+            version=model['version'],
+            description=model['description'],
+            content=model['content'])
