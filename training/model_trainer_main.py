@@ -10,8 +10,8 @@ from airflow.plugins.gym_env_factory import GymEnvFactory
 from airflow.plugins.db_connection import DbConnection
 from airflow.plugins.domain_model import Instrument, Interval
 from airflow.plugins.gym_env_single_asset import register_single_asset_trading_env
-from airflow.plugins.synthetic_data_adapter import SyntheticDataAdapter
 from airflow.plugins.moex_candles_sql_adapter import CandlesSqlAdapter
+from airflow.plugins.models_sql_adapter import ModelsSqlAdapter
 
 from training.model_trainer import ModelTrainer
 
@@ -31,6 +31,7 @@ if __name__ == '__main__':
     device = th.device("cuda" if th.cuda.is_available() else "cpu")
 
     sql_adapter = CandlesSqlAdapter(db_connection, interval, instrument)
+    model_sql_adapter = ModelsSqlAdapter(db_connection)
     env_factory = GymEnvFactory(sql_adapter)
 
     trainer = ModelTrainer(
@@ -42,7 +43,7 @@ if __name__ == '__main__':
         log_dir="logs",
     )
 
-    train_end_time_utc = datetime(2025, 1, 14, tzinfo=timezone.utc)
+    train_end_time_utc = datetime(2025, 1, 30, tzinfo=timezone.utc)
     days_count = 100
     train_start_time_utc = train_end_time_utc - timedelta(days=days_count)
 
@@ -80,5 +81,18 @@ if __name__ == '__main__':
         print(f"{algo} reward evaluation by {eval_episodes} episodes: mean={rewards} std={steps}")
 
     model_name = f"{algo}_model"
-    print(f"Saving model to '{model_name}.zip'")
+    file_name = f"{model_name}.zip"
+
+    # save into file
+    print(f"Saving model to '{file_name}'")
     model.save(model_name)
+
+    # save into db
+    model_sql_adapter.insert_model(
+        file_path=file_name,
+        algo=algo,
+        description=f"trained from {train_start_time_utc} to {train_end_time_utc}")
+
+    version = model_sql_adapter.get_last_version(file_name)
+    print(f"Model saved into db with version={version}")
+

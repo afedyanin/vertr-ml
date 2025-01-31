@@ -1,5 +1,6 @@
 import json
 import uuid
+import io
 from datetime import datetime, timezone, timedelta
 from typing import Dict, Type
 
@@ -17,6 +18,7 @@ from signals_sql_adapter import SignalsSqlAdapter
 from db_connection import DbConnection
 from strategy_predictor import StrategyPredictor
 from strategy_sb3 import StrategySb3
+from models_sql_adapter import ModelsSqlAdapter
 
 ALGOS: Dict[str, Type[BaseAlgorithm]] = {
     "a2c": A2C,
@@ -55,7 +57,7 @@ with DAG(
         register_single_asset_trading_env(1)
 
         # TODO: optimize it
-        prediction = get_prediction(algo_name, instrument, interval)
+        prediction = get_prediction(algo_name, db_connection, instrument, interval)
         prediction_time = prediction['time_utc']
 
         signals_adapter = SignalsSqlAdapter(db_connection)
@@ -93,12 +95,20 @@ with DAG(
 
     def get_prediction(
             algo_name: str,
+            db_connection: DbConnection,
             instrument: Instrument,
             interval: Interval,
     ):
         candles_adapter = CandlesTinvestAdapter(interval=interval, instrument=instrument)
-        model_path = f"/opt/airflow/dags/models/{algo_name}_model"
-        model = ALGOS[algo_name].load(model_path)
+
+        models_adapter = ModelsSqlAdapter(db_connection)
+        file_name = f"{algo_name}_model.zip"
+        loaded_model = models_adapter.get_model_by_file_name(file_name)
+        print(f'Model loaded: {loaded_model.file_name} v={loaded_model.version} {loaded_model.description}')
+
+        fio = io.BytesIO(loaded_model.content)
+        model = ALGOS[loaded_model.algo].load(fio)
+
         strategy = StrategySb3(model)
         predictor = StrategyPredictor(data_adapter=candles_adapter, strategy=strategy)
         start_date_utc, end_date_utc = get_date_range()
