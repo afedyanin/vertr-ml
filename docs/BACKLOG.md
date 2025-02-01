@@ -1,3 +1,17 @@
+# 2025-01-31
+
+## Start Fast API
+
+```shell
+cd app
+fastapi dev main.py
+```
+
+```shell
+cd ..
+docker compose up
+```
+
 # 2025-01-26
 
 ## TODO
