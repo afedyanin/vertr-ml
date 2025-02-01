@@ -1,3 +1,22 @@
-fastapi[standard]
-pydantic
+fastapi[standard]~=0.115.7
+pydantic~=2.10.6
 
+
+sb3_contrib~=2.3.0
+stable_baselines3~=2.3.2
+pandas~=2.2.2
+SQLAlchemy~=2.0.36
+gymnasium~=0.29.1
+pandas_ta~=0.3.14b0
+requests~=2.32.3
+apimoex~=1.4.0
+psycopg~=3.2.3
+numpy~=1.26.4
+tinkoff~=0.1.1
+rl_zoo3~=2.3.0
+torch~=2.4.1
+optuna~=4.1.0
+httpx~=0.27.0
+beanie~=1.29.0
+uvicorn~=0.34.0
+motor~=3.7.0
