@@ -1,21 +1,15 @@
 from fastapi import FastAPI, Depends
-from controllers import admin, management
-from configuration.config import LibrarySettings
+
+from app.controllers.prediction import prediction_router
 
 app = FastAPI()
-app.include_router(admin.router, prefix="/library")
-app.include_router(management.router, prefix="/library")
-
-
-def build_config():
-    return LibrarySettings()
-
+app.include_router(prediction_router, prefix="/prediction")
 
 @app.get('/index')
-def index_library(config:LibrarySettings = Depends(build_config) ):
+def index():
     return {
-            'project_name': config.application,
-            'webmaster': config.webmaster,
-            'created': config.created
+            'project_name': 'project name',
+            'webmaster': 'anfemail@gmail.com',
+            'created': '2025-02-02'
             }
 
