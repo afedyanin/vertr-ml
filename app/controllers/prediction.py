@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 
@@ -9,10 +9,6 @@ prediction_router = APIRouter()
 
 
 @prediction_router.post('/predict')
-def predict(request: PredictionReq) -> JSONResponse:
-    predictor = get_predictor(strategy_type=request.strategy)
-    if predictor is None:
-        return JSONResponse(content={'message': 'unknown strategy'}, status_code=500)
-
+def predict(request: PredictionReq, predictor=Depends(get_predictor)) -> JSONResponse:
     result = predictor.get_prediction(request)
     return jsonable_encoder(result)
