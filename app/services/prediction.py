@@ -4,10 +4,10 @@ from random import Random
 from typing import List
 
 from app.models.data.prediction import StrategyType, Action
-from app.models.request.prediction import PredictionReq, PredictionResult, PredictionItem
+from app.models.request.prediction import PredictionRequest, PredictionResult, PredictionItem
 
 
-def get_predictor(request: PredictionReq):
+def get_predictor(request: PredictionRequest):
     if request.strategy == StrategyType.RandomWalk:
         return RandomWalkPredictor()
     elif request.strategy == StrategyType.TrendFollowing:
@@ -23,7 +23,7 @@ class PredictorBase(abc.ABC):
     def __init__(self) -> None:
         self._rng = Random()
 
-    def get_prediction(self, request: PredictionReq) -> PredictionResult:
+    def get_prediction(self, request: PredictionRequest) -> PredictionResult:
         pass
 
     def _get_items(self) -> List[PredictionItem]:
@@ -57,7 +57,7 @@ class RandomWalkPredictor(PredictorBase):
     def __init__(self) -> None:
         super().__init__()
 
-    def get_prediction(self, request: PredictionReq) -> PredictionResult:
+    def get_prediction(self, request: PredictionRequest) -> PredictionResult:
         result = PredictionResult(
             strategy=request.strategy,
             algo=request.algo,
@@ -73,7 +73,7 @@ class TrendFollowingPredictor(PredictorBase):
     def __init__(self) -> None:
         super().__init__()
 
-    def get_prediction(self, request: PredictionReq) -> PredictionResult:
+    def get_prediction(self, request: PredictionRequest) -> PredictionResult:
         result = PredictionResult(
             strategy=request.strategy,
             algo=request.algo,
@@ -92,7 +92,7 @@ class Sb3Predictor(PredictorBase):
     def __init__(self) -> None:
         super().__init__()
 
-    def get_prediction(self, request: PredictionReq) -> PredictionResult:
+    def get_prediction(self, request: PredictionRequest) -> PredictionResult:
         result = PredictionResult(
             strategy=request.strategy,
             algo=request.algo,

@@ -1,3 +1,11 @@
+# 2025-02-03
+
+## T-Invest
+https://github.com/RussianInvestments/invest-python
+https://russianinvestments.github.io/invest-python/examples/
+https://tinkoff.github.io/investAPI/operations/#positionsrequest
+
+
 # 2025-02-02
 
 ## TODO
