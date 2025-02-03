@@ -6,18 +6,18 @@ from tinkoff.invest import Instrument, Client, InstrumentIdType, CandleInterval
 from tinkoff.invest.schemas import CandleSource
 from tinkoff.invest.utils import quotation_to_decimal
 
-_SB_TOKEN_ = 't.8DpIsag8_t2bHcaPEXZiAxDLdxbyqP7MXvDwoamPBWSDBD7dgQeMNutgas5Ay83YOlLsA-m8qSPm8Sz-FMaNuw'
+from app.configuration.config import TinvestSettings
 
 
 class TinvestAdapter:
-    def __init__(self, token: str = _SB_TOKEN_):
-        self._token = token
+    def __init__(self, config: TinvestSettings):
+        self._config = config
 
     def get_instrument(
             self,
             ticker: str = "SBER",
             class_code: str = "TQBR") -> Instrument:
-        with Client(self._token) as client:
+        with Client(self._config.token) as client:
             response = client.instruments.get_instrument_by(
                 id_type=InstrumentIdType.INSTRUMENT_ID_TYPE_TICKER,
                 class_code=class_code,
@@ -25,7 +25,7 @@ class TinvestAdapter:
             return response.instrument
 
     def find_instrument(self, query: str) -> list[Instrument]:
-        with Client(self._token) as client:
+        with Client(self._config.token) as client:
             response = client.instruments.find_instrument(query=query)
             return response.instruments
 
@@ -42,7 +42,7 @@ class TinvestAdapter:
         if start_date_utc is None:
             start_date_utc = end_date_utc - timedelta(days=2)
 
-        with Client(self._token) as client:
+        with Client(self._config.token) as client:
             candles = client.get_all_candles(
                 instrument_id=instrument_id,
                 from_=start_date_utc,
