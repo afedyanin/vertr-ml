@@ -14,6 +14,9 @@ class PgSqlSettings(BaseSettings):
     user: str
     password: str
 
+    def get_database_url(self):
+        return f"postgresql+psycopg2://{self.user}:{self.password}@{self.host}:{self.port}/{self.dbname}"
+
 
 class TinvestSettings(BaseSettings):
     model_config = SettingsConfigDict(
