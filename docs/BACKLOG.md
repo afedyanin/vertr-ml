@@ -1,5 +1,10 @@
 # 2025-02-03
 
+## TODO
+- создать gym среду по дата-фрейму
+- протестировать и проверить среду
+- создать API респонс на основе датафрейма для бенчмарк стратегий (без gym среды)
+
 ## T-Invest
 https://github.com/RussianInvestments/invest-python
 https://russianinvestments.github.io/invest-python/examples/
