@@ -1,10 +1,19 @@
 import abc
 from datetime import datetime, timezone
+from enum import Enum
 from random import Random
 from typing import List
 
-from app.models.data.prediction import StrategyType, Action
+from app.configuration.config import PgSqlSettings
+from app.models.gym_env_single_asset import Action
 from app.models.request.prediction import PredictionRequest, PredictionResult, PredictionItem
+from app.repositories.tinvest_candles import TinvestCandlesRepository
+
+
+class StrategyType(str, Enum):
+    Sb3 = 'Sb3'
+    RandomWalk = 'RandomWalk'
+    TrendFollowing = 'TrendFollowing'
 
 
 def get_predictor(request: PredictionRequest):
@@ -20,8 +29,10 @@ def get_predictor(request: PredictionRequest):
 
 class PredictorBase(abc.ABC):
 
-    def __init__(self) -> None:
+    def __init__(self, env_file: str = '../app/.env') -> None:
         self._rng = Random()
+        sql_config = PgSqlSettings(_env_file=env_file)
+        self.candles_repo = TinvestCandlesRepository(sql_config)
 
     def get_prediction(self, request: PredictionRequest) -> PredictionResult:
         pass
@@ -36,8 +47,8 @@ class PredictorBase(abc.ABC):
                 high=100.24,
                 low=100.24,
                 volume=223,
-                is_completed = True,
-                action = self._get_action()
+                is_completed=True,
+                action=self._get_action()
             )
             items.append(item)
         return items

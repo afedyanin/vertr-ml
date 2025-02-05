@@ -30,6 +30,28 @@ class TinvestCandlesRepository:
                f"AND symbol = '{symbol}' "
                f"AND interval = '{interval}'"
                )
+
+        df = pd.read_sql_query(sql, self._engine)
+        return df
+
+    def get_last_candles(self,
+                         symbol: str,
+                         interval: int,
+                         count: int = 10,
+                         completed_only: bool = True) -> pd.DataFrame:
+
+        if completed_only:
+            completed_only_sql = f"AND is_completed = true"
+        else:
+            completed_only_sql = f""
+
+        sql = (f"SELECT * FROM {self._candles_table} "
+               f"WHERE symbol = '{symbol}' "
+               f"AND interval = '{interval}' "
+               f"{completed_only_sql} "
+               f"ORDER BY time_utc DESC LIMIT {count} "
+               )
+
         df = pd.read_sql_query(sql, self._engine)
         return df
 
