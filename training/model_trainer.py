@@ -1,8 +1,8 @@
 import sys
-from datetime import datetime
 from typing import Dict, Type, Any
 
 import gymnasium as gym
+import pandas as pd
 import torch as th
 
 from sb3_contrib import ARS, QRDQN, TQC, TRPO, RecurrentPPO
@@ -11,9 +11,11 @@ from stable_baselines3.common.base_class import BaseAlgorithm
 from stable_baselines3.common.evaluation import evaluate_policy
 from stable_baselines3.common.monitor import Monitor
 
-sys.path.append("../airflow/plugins")
+from app.models.feature_composer import FeatureComposer
 
-from gym_env_factory import GymEnvFactory
+sys.path.append("../app/models")
+
+from app.models.gym_env_factory import GymEnvFactory
 from training import hyperparams as hp
 
 ALGOS: Dict[str, Type[BaseAlgorithm]] = {
@@ -34,36 +36,29 @@ ALGOS: Dict[str, Type[BaseAlgorithm]] = {
 
 class ModelTrainer:
     def __init__(self,
-                 env_factory: GymEnvFactory,
                  algo: str,
                  verbose: int = 1,
                  device: th.device | str = "auto",
-                 seed: int | None = None,
                  log_dir: str | None = None,
                  ):
-        self.env_factory = env_factory
         self.algo = algo
         self.verbose = verbose
         self.device = device
-        self.seed = seed
         self.log_dir = log_dir
+        self._fk = FeatureComposer()
 
     def train(self,
-              start_time_utc: datetime,
-              end_time_utc: datetime,
+              candles_df: pd.DataFrame,
               episode_duration: int | str = "max",
               episodes: int = 1000,
               hyperparams: Dict[str, Any] | None = None,
               optimized: bool = False,
               ) -> BaseAlgorithm:
 
-        training_env, episode_steps = self.env_factory.create_env(
-            start_time_utc=start_time_utc,
-            end_time_utc=end_time_utc,
-            episode_duration=episode_duration)
-
+        train_df = self._fk.compose(candles_df)
+        env_factory = GymEnvFactory(train_df)
+        training_env, episode_steps = env_factory.create_env(episode_duration=episode_duration)
         time_steps = episode_steps * episodes
-
         print(f"Training algo {self.algo}:  {time_steps} time steps.")
 
         model = self._train(
@@ -75,17 +70,15 @@ class ModelTrainer:
         return model
 
     def evaluate(self,
+                 candles_df: pd.DataFrame,
                  model: BaseAlgorithm,
-                 start_time_utc: datetime,
-                 end_time_utc: datetime,
                  episode_duration: int | str = "max",
                  episodes: int = 1000,
                  return_episode_rewards: bool = False):
 
-        eval_env, _ = self.env_factory.create_env(
-            start_time_utc=start_time_utc,
-            end_time_utc=end_time_utc,
-            episode_duration=episode_duration)
+        eval_df = self._fk.compose(candles_df)
+        env_factory = GymEnvFactory(eval_df)
+        eval_env, _ = env_factory.create_env(episode_duration=episode_duration)
 
         return ModelTrainer._evaluate(
             env=eval_env,
@@ -114,7 +107,6 @@ class ModelTrainer:
         model = ALGOS[self.algo](
             env=env,
             tensorboard_log=self.log_dir,
-            seed=self.seed,
             verbose=self.verbose,
             device=self.device,
             **kwargs,

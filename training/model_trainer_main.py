@@ -1,18 +1,13 @@
 import sys
 from datetime import datetime, timezone, timedelta
 
-import numpy as np
 import torch as th
 
-sys.path.append("../airflow/plugins")
-
-from airflow.plugins.gym_env_factory import GymEnvFactory
-from airflow.plugins.db_connection import DbConnection
-from airflow.plugins.domain_model import Instrument, Interval
-from airflow.plugins.gym_env_single_asset import register_single_asset_trading_env
-from airflow.plugins.moex_candles_sql_adapter import CandlesSqlAdapter
-from airflow.plugins.models_sql_adapter import ModelsSqlAdapter
-
+from app.configuration.config import PgSqlSettings
+from app.models.data.candle import Interval
+from app.models.gym_env_factory import register_single_asset_trading_env
+from app.repositories.sb3_models import Sb3ModelsRepository
+from app.repositories.tinvest_candles import TinvestCandlesRepository
 from training.model_trainer import ModelTrainer
 
 if __name__ == '__main__':
@@ -25,27 +20,31 @@ if __name__ == '__main__':
     print(f"Registering gym env...")
     register_single_asset_trading_env(1)
 
-    db_connection = DbConnection.local_db_connection()
-    instrument = Instrument.get_instrument("SBER")
-    interval = Interval.min_10
+    sql_config = PgSqlSettings(_env_file='../app/.env')
+    candles_repo = TinvestCandlesRepository(sql_config)
+    models_repo = Sb3ModelsRepository(sql_config)
+
+    symbol = "SBER"
+    interval = Interval.CANDLE_INTERVAL_10_MIN
     device = th.device("cuda" if th.cuda.is_available() else "cpu")
 
-    sql_adapter = CandlesSqlAdapter(db_connection, interval, instrument)
-    model_sql_adapter = ModelsSqlAdapter(db_connection)
-    env_factory = GymEnvFactory(sql_adapter)
+    train_end_time_utc = datetime(2025, 1, 30, tzinfo=timezone.utc)
+    train_start_time_utc = train_end_time_utc - timedelta(days=100)
+    eval_end_time_utc = datetime(2025, 1, 24, tzinfo=timezone.utc)
+    eval_start_time_utc = eval_end_time_utc - timedelta(days=30)
+
+    train_candles = candles_repo.get_candles(
+        symbol=symbol,
+        interval=interval.value,
+        start_date_utc=train_start_time_utc,
+        end_date_utc=train_end_time_utc)
 
     trainer = ModelTrainer(
-        env_factory=env_factory,
         algo=algo,
         verbose=0,
         device=device,
-        seed=None,
         log_dir="logs",
     )
-
-    train_end_time_utc = datetime(2025, 1, 30, tzinfo=timezone.utc)
-    days_count = 100
-    train_start_time_utc = train_end_time_utc - timedelta(days=days_count)
 
     basic_hyperparams = {
         "policy": "MlpPolicy",
@@ -53,8 +52,7 @@ if __name__ == '__main__':
 
     print(f"Start training algorithm: {algo}")
     model = trainer.train(
-        start_time_utc=train_start_time_utc,
-        end_time_utc=train_end_time_utc,
+        candles_df=train_candles,
         episode_duration=1000,
         episodes=100,
         hyperparams=basic_hyperparams,
@@ -64,12 +62,14 @@ if __name__ == '__main__':
     return_episode_rewards = False
     eval_episodes = 5
 
-    eval_end_time_utc = datetime(2025, 1, 24, tzinfo=timezone.utc)
-    eval_start_time_utc = eval_end_time_utc - timedelta(days=30)
+    eval_candles = candles_repo.get_candles(
+        symbol=symbol,
+        interval=interval.value,
+        start_date_utc=eval_start_time_utc,
+        end_date_utc=eval_end_time_utc)
 
     rewards, steps = trainer.evaluate(
-        start_time_utc=eval_start_time_utc,
-        end_time_utc=eval_end_time_utc,
+        candles_df=eval_candles,
         model=model,
         episode_duration=100,
         episodes=eval_episodes,
@@ -88,11 +88,11 @@ if __name__ == '__main__':
     model.save(model_name)
 
     # save into db
-    model_sql_adapter.insert_model(
+    models_repo.insert_model(
         file_path=file_name,
         algo=algo,
-        description=f"trained from {train_start_time_utc} to {train_end_time_utc}")
+        description=f"{symbol} on {interval.name}. From {train_start_time_utc} to {train_end_time_utc}")
 
-    version = model_sql_adapter.get_last_version(file_name)
+    version = models_repo.get_last_version(file_name)
     print(f"Model saved into db with version={version}")
 
