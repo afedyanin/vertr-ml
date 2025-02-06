@@ -56,6 +56,25 @@ class Sb3ModelsRepository:
                     row_dict[col.name] = row[i]
                 return Sb3Model.from_dict(row_dict)
 
+    def get_model_by_algo_name(self, algo: str) -> Sb3Model | None:
+        with psycopg.connect(
+                dbname=self._config.dbname,
+                user=self._config.user,
+                password=self._config.password,
+                host=self._config.host,
+                port=self._config.port) as conn:
+            with conn.cursor() as cur:
+                cur.execute(f"SELECT * FROM {self._models_table} WHERE algo = '{algo}' "
+                            f"ORDER BY version DESC LIMIT 1")
+                row = cur.fetchone()
+                if row is None:
+                    return None
+                columns = list(cur.description)
+                row_dict = {}
+                for i, col in enumerate(columns):
+                    row_dict[col.name] = row[i]
+                return Sb3Model.from_dict(row_dict)
+
     def delete_model(self, model_id: uuid) -> None:
         with psycopg.connect(
                 dbname=self._config.dbname,

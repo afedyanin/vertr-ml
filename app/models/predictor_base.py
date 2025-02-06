@@ -60,7 +60,6 @@ class PredictorTrendFollowing(PredictorBase):
             time_index.append(index)
             open_price = self.candles.loc[index, 'open']
             close_price = self.candles.loc[index, 'close']
-
             delta = close_price - open_price
 
             if abs(delta) < self.threshold:
