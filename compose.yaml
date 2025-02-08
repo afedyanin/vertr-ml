@@ -6,6 +6,12 @@ services:
     container_name: vertr-ml
     environment:
       PORT: 8000
+      PG_DBNAME: vertr
+      PG_HOST: infra-pgsql-1
+      PG_PORT: 5432
+      PG_USER: postgres
+      PG_PASSWORD: admin
+
     ports:
       - '8000:8000'
     #restart: "always"

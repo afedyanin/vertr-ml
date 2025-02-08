@@ -1,7 +1,6 @@
 fastapi[standard]~=0.115.7
 pydantic~=2.10.6
-
-
+pydantic_settings~=2.7.1
 sb3_contrib~=2.3.0
 stable_baselines3~=2.3.2
 pandas~=2.2.2
@@ -10,7 +9,7 @@ gymnasium~=0.29.1
 pandas_ta~=0.3.14b0
 requests~=2.32.3
 apimoex~=1.4.0
-psycopg~=3.2.3
+psycopg2~=2.9.10
 numpy~=1.26.4
 tinkoff~=0.1.1
 rl_zoo3~=2.3.0

@@ -1,7 +1,7 @@
 
 from datetime import datetime, timezone
 
-import psycopg
+import psycopg2 as psycopg
 import pandas as pd
 
 from app.configuration.config import PgSqlSettings

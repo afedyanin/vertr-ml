@@ -1,3 +1,9 @@
+# 2025-02-09
+
+```shell
+docker network connect vertr-ml_default infra-pgsql-1
+```
+
 # 2025-02-06
 
 ## TODO

@@ -2,7 +2,7 @@ import abc
 from datetime import datetime, timezone
 from sqlalchemy import create_engine
 
-import psycopg
+import psycopg2 as psycopg
 import pandas as pd
 
 from app.configuration.config import PgSqlSettings
