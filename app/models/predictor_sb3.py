@@ -10,7 +10,7 @@ class PredictorSb3(PredictorBase):
         self.env = env
         self.model = model
 
-    def _predict(self) -> tuple:
+    def predict(self) -> tuple:
         observation, info = self.env.reset()
         is_done = False
         time_index = []

@@ -12,18 +12,18 @@ class PredictorBase(abc.ABC):
         pass
 
     def predict_last(self) -> tuple:
-        time_index, predicted_actions = self._predict()
+        time_index, predicted_actions = self.predict()
         return time_index[-1], predicted_actions[-1]
 
-    def predict_all(self) -> pd.DataFrame:
-        time_index, predicted_actions = self._predict()
+    def predict_df(self) -> pd.DataFrame:
+        time_index, predicted_actions = self.predict()
         df_pred = pd.DataFrame(
             index=time_index,
             data={"action": predicted_actions},
         )
         return df_pred
 
-    def _predict(self) -> tuple:
+    def predict(self) -> tuple:
         time_index = []
         predicted_actions = []
 
@@ -36,7 +36,7 @@ class PredictorRandomWalk(PredictorBase):
         self.candles = candles
         self._rng = Random(seed)
 
-    def _predict(self) -> tuple:
+    def predict(self) -> tuple:
         time_index = []
         predicted_actions = []
         for index, row in self.candles.iterrows():
@@ -53,7 +53,7 @@ class PredictorTrendFollowing(PredictorBase):
         self.candles = candles
         self.threshold = threshold
 
-    def _predict(self) -> tuple:
+    def predict(self) -> tuple:
         time_index = []
         predicted_actions = []
         for index, row in self.candles.iterrows():

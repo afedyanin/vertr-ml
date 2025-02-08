@@ -1,43 +1,17 @@
-import abc
+
 from datetime import datetime, timezone
-from sqlalchemy import create_engine
 
 import psycopg
 import pandas as pd
 
 from app.configuration.config import PgSqlSettings
+from app.repositories.tinvest_candles import CandlesRepositoryBase
 
 
-class CandlesRepositoryBase(abc.ABC):
-    def __init__(self, config: PgSqlSettings):
-        self._config = config
-        self._engine = create_engine(config.get_database_url())
-
-    def get_candles(self,
-                    symbol: str,
-                    interval: int,
-                    start_date_utc: datetime | None = None,
-                    end_date_utc: datetime | None = None) -> pd.DataFrame:
-        pass
-
-    def get_last_candles(self,
-                         symbol: str,
-                         interval: int,
-                         count: int = 10,
-                         completed_only: bool = True) -> pd.DataFrame:
-        pass
-
-    def insert_candles(self,
-                       symbol: str,
-                       interval: int,
-                       candles: pd.DataFrame) -> int:
-        pass
-
-
-class TinvestCandlesRepository(CandlesRepositoryBase):
+class SyntheticCandlesRepository(CandlesRepositoryBase):
     def __init__(self, config: PgSqlSettings):
         super().__init__(config)
-        self._candles_table = "tinvest_candles"
+        self._candles_table = "synthetic_candles"
 
     def get_candles(self,
                     symbol: str,

@@ -1,11 +1,11 @@
 # 2025-02-06
 
 ## TODO
-- [ ] prediction API - request & response model, controller, services
+- [x] prediction API - request & response model, controller, services
 - [ ] DI and Singletone for factories, services etc  
 - [ ] написать тесты на env для синтетики - проверить правильность работы енва
 
-## Использование API
+## Использование API (Клиент)
 - [ ] блокнот с клиентом для API
 - [ ] положить API в докер контейнер и использовать из Air Flow 
 

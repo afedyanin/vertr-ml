@@ -50,7 +50,7 @@ class PredictorFactory:
         self._df = fk.compose(self._candles)
 
     def create_predictor(self,
-                         predictor_type: PredictorType,
+                         predictor_type: str,
                          sb3_algo: str | None = None) -> PredictorBase:
         if predictor_type == PredictorType.RandomWalk:
             return self._create_rw_predictor()
