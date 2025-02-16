@@ -28,9 +28,9 @@ if __name__ == '__main__':
     interval = Interval.CANDLE_INTERVAL_10_MIN
     device = th.device("cuda" if th.cuda.is_available() else "cpu")
 
-    train_end_time_utc = datetime(2025, 1, 30, tzinfo=timezone.utc)
+    train_end_time_utc = datetime(2025, 2, 15, tzinfo=timezone.utc)
     train_start_time_utc = train_end_time_utc - timedelta(days=100)
-    eval_end_time_utc = datetime(2025, 1, 24, tzinfo=timezone.utc)
+    eval_end_time_utc = datetime(2025, 2, 15, tzinfo=timezone.utc)
     eval_start_time_utc = eval_end_time_utc - timedelta(days=30)
 
     train_candles = candles_repo.get_candles(

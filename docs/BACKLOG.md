@@ -8,7 +8,7 @@
 - реализовать клиента для работы с API
 
 ```shell
-docker network connect vertr-ml_default infra-pgsql-1
+docker network connect vertr-platform_default infra-pgsql-1
 ```
 
 # 2025-02-06
