@@ -9,3 +9,5 @@
 docker network ls
 docker network connect airflow_default infra-pgsql-1
 ```
+
+
