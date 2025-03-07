@@ -29,6 +29,523 @@
       "fieldConfig": {
         "defaults": {
           "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 2,
+          "displayName": "Сумма (руб.)",
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "locale"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 3,
+        "x": 0,
+        "y": 0
+      },
+      "id": 6,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "firstNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": false,
+        "sizing": "auto"
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT time_utc, total_amount_portfolio FROM tinvest_portfolio_snapshots WHERE account_id = '$account_id' ORDER BY time_utc DESC LIMIT 10 ",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "time_utc",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "portfolio",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "orderBy": {
+              "property": {
+                "name": [
+                  "time_utc"
+                ],
+                "type": "string"
+              },
+              "type": "property"
+            },
+            "orderByDirection": "ASC",
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "88aa89b8-cdef-4012-b456-7193ce347a22",
+                  "properties": {
+                    "field": "account_id",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      "$account_id"
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "8a9888ab-0123-4456-b89a-b193c620cb41",
+              "type": "group"
+            },
+            "whereString": "account_id = '$account_id'"
+          },
+          "table": "portfolio_snapshots"
+        }
+      ],
+      "title": "Текущий баланс портфеля",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "be6b5l4dvc0e8f"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "locale"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 3,
+        "x": 3,
+        "y": 0
+      },
+      "id": 10,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^C$/",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT total_amount_portfolio FROM tinvest_portfolio_snapshots WHERE account_id = '$account_id' ORDER BY time_utc DESC LIMIT 1\r\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "time_utc",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "portfolio",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "orderBy": {
+              "property": {
+                "name": [
+                  "time_utc"
+                ],
+                "type": "string"
+              },
+              "type": "property"
+            },
+            "orderByDirection": "DESC",
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "aaaab898-89ab-4cde-b012-3193a7181ae4",
+                  "properties": {
+                    "field": "account_id",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      "$account_id"
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                },
+                {
+                  "id": "a8ababbb-4567-489a-bcde-f1940741cf07",
+                  "properties": {
+                    "fieldSrc": "field",
+                    "value": [],
+                    "valueSrc": []
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "aaab8ba8-0123-4456-b89a-b193a6ca4801",
+              "type": "group"
+            },
+            "whereString": "account_id = '$account_id'"
+          },
+          "table": "portfolio_snapshots"
+        },
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "be6b5l4dvc0e8f"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT SUM(payment) FROM tinvest_operations WHERE (account_id = '$account_id' AND operation_type = 19)",
+          "refId": "B",
+          "sql": {
+            "columns": [
+              {
+                "name": "SUM",
+                "parameters": [
+                  {
+                    "name": "payment",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50,
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "a8ba99a9-89ab-4cde-b012-31940741143f",
+                  "properties": {
+                    "field": "account_id",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      "$account_id"
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                },
+                {
+                  "id": "a999aa8b-4567-489a-bcde-f194074225b8",
+                  "properties": {
+                    "field": "operation_type",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      19
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "number"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "89a8b8a9-0123-4456-b89a-b19406ecc9c5",
+              "type": "group"
+            },
+            "whereString": "(account_id = '$account_id' AND operation_type = 19)"
+          },
+          "table": "operations"
+        },
+        {
+          "datasource": {
+            "name": "Expression",
+            "type": "__expr__",
+            "uid": "__expr__"
+          },
+          "expression": "$A-$B",
+          "hide": false,
+          "refId": "C",
+          "type": "math"
+        }
+      ],
+      "title": "Портфель без учета комиссий",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "be6b5l4dvc0e8f"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "displayName": "Количество (шт.)",
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 3,
+        "x": 6,
+        "y": 0
+      },
+      "id": 7,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "firstNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": false,
+        "sizing": "auto"
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT quantity \r\nFROM tinvest_portfolio_positions as pos\r\nJOIN tinvest_portfolio_snapshots as snp on pos.portfolio_snapshot_id = snp.id\r\nWHERE snp.account_id = '$account_id'\r\nAND pos.instrument_uid = 'e6123145-9665-43e0-8413-cd61b8aa9b13'\r\nORDER BY snp.time_utc DESC\r\nLIMIT 1\r\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "time_utc",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "balance",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "orderBy": {
+              "property": {
+                "name": [
+                  "time_utc"
+                ],
+                "type": "string"
+              },
+              "type": "property"
+            },
+            "orderByDirection": "ASC",
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "bba8a999-4567-489a-bcde-f193a708ef24",
+                  "properties": {
+                    "field": "account_id",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      "$account_id"
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                },
+                {
+                  "id": "89989ba9-0123-4456-b89a-b193a70d7822",
+                  "properties": {
+                    "field": "instrument_uid",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      "e6123145-9665-43e0-8413-cd61b8aa9b13"
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "aaab8ba8-0123-4456-b89a-b193a6ca4801",
+              "type": "group"
+            },
+            "whereString": "(account_id = '$account_id' AND instrument_uid = 'e6123145-9665-43e0-8413-cd61b8aa9b13')"
+          },
+          "table": "position_snapshots"
+        }
+      ],
+      "title": "Позиция SBER",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "be6b5l4dvc0e8f"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
             "mode": "palette-classic"
           },
           "custom": {
@@ -80,7 +597,7 @@
       "gridPos": {
         "h": 8,
         "w": 12,
-        "x": 0,
+        "x": 9,
         "y": 0
       },
       "id": 1,
@@ -115,7 +632,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT time_utc, open, high, low, close, volume FROM tinvest_candles WHERE \"interval\" = 10 ORDER BY time_utc DESC",
+          "rawSql": "SELECT time_utc, open, high, low, close, volume FROM tinvest_candles WHERE \"interval\" = 8 ORDER BY time_utc DESC",
           "refId": "A",
           "sql": {
             "columns": [
@@ -238,136 +755,6 @@
           "color": {
             "mode": "thresholds"
           },
-          "decimals": 2,
-          "displayName": "Сумма (руб.)",
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "locale"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 3,
-        "x": 12,
-        "y": 0
-      },
-      "id": 6,
-      "options": {
-        "minVizHeight": 75,
-        "minVizWidth": 75,
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": false,
-        "sizing": "auto"
-      },
-      "pluginVersion": "11.4.0",
-      "targets": [
-        {
-          "editorMode": "code",
-          "format": "table",
-          "rawQuery": true,
-          "rawSql": "SELECT time_utc, portfolio FROM portfolio_snapshots WHERE account_id = '$account_id' ORDER BY time_utc ASC ",
-          "refId": "A",
-          "sql": {
-            "columns": [
-              {
-                "parameters": [
-                  {
-                    "name": "time_utc",
-                    "type": "functionParameter"
-                  }
-                ],
-                "type": "function"
-              },
-              {
-                "parameters": [
-                  {
-                    "name": "portfolio",
-                    "type": "functionParameter"
-                  }
-                ],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ],
-            "orderBy": {
-              "property": {
-                "name": [
-                  "time_utc"
-                ],
-                "type": "string"
-              },
-              "type": "property"
-            },
-            "orderByDirection": "ASC",
-            "whereJsonTree": {
-              "children1": [
-                {
-                  "id": "88aa89b8-cdef-4012-b456-7193ce347a22",
-                  "properties": {
-                    "field": "account_id",
-                    "fieldSrc": "field",
-                    "operator": "equal",
-                    "value": [
-                      "$account_id"
-                    ],
-                    "valueError": [
-                      null
-                    ],
-                    "valueSrc": [
-                      "value"
-                    ],
-                    "valueType": [
-                      "text"
-                    ]
-                  },
-                  "type": "rule"
-                }
-              ],
-              "id": "8a9888ab-0123-4456-b89a-b193c620cb41",
-              "type": "group"
-            },
-            "whereString": "account_id = '$account_id'"
-          },
-          "table": "portfolio_snapshots"
-        }
-      ],
-      "title": "Текущий баланс портфеля",
-      "type": "gauge"
-    },
-    {
-      "datasource": {
-        "type": "grafana-postgresql-datasource",
-        "uid": "be6b5l4dvc0e8f"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
           "displayName": "%",
           "mappings": [
             {
@@ -408,10 +795,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
+        "h": 7,
         "w": 3,
-        "x": 15,
-        "y": 0
+        "x": 0,
+        "y": 8
       },
       "id": 5,
       "options": {
@@ -420,7 +807,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "lastNotNull"
+            "firstNotNull"
           ],
           "fields": "",
           "values": false
@@ -432,9 +819,10 @@
       "pluginVersion": "11.4.0",
       "targets": [
         {
-          "editorMode": "builder",
+          "editorMode": "code",
           "format": "table",
-          "rawSql": "SELECT expected_yield, time_utc FROM portfolio_snapshots WHERE account_id = '$account_id' ORDER BY time_utc ASC ",
+          "rawQuery": true,
+          "rawSql": "SELECT expected_yield FROM tinvest_portfolio_snapshots WHERE account_id = '$account_id' ORDER BY time_utc DESC LIMIT 10",
           "refId": "A",
           "sql": {
             "columns": [
@@ -516,343 +904,6 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
-          },
-          "displayName": "Количество (шт.)",
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "red",
-                "value": null
-              },
-              {
-                "color": "green",
-                "value": 1
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 3,
-        "x": 18,
-        "y": 0
-      },
-      "id": 7,
-      "options": {
-        "minVizHeight": 75,
-        "minVizWidth": 75,
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": false,
-        "sizing": "auto"
-      },
-      "pluginVersion": "11.4.0",
-      "targets": [
-        {
-          "editorMode": "builder",
-          "format": "table",
-          "rawSql": "SELECT time_utc, balance FROM position_snapshots WHERE (account_id = '$account_id' AND instrument_uid = 'e6123145-9665-43e0-8413-cd61b8aa9b13') ORDER BY time_utc ASC ",
-          "refId": "A",
-          "sql": {
-            "columns": [
-              {
-                "parameters": [
-                  {
-                    "name": "time_utc",
-                    "type": "functionParameter"
-                  }
-                ],
-                "type": "function"
-              },
-              {
-                "parameters": [
-                  {
-                    "name": "balance",
-                    "type": "functionParameter"
-                  }
-                ],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ],
-            "orderBy": {
-              "property": {
-                "name": [
-                  "time_utc"
-                ],
-                "type": "string"
-              },
-              "type": "property"
-            },
-            "orderByDirection": "ASC",
-            "whereJsonTree": {
-              "children1": [
-                {
-                  "id": "bba8a999-4567-489a-bcde-f193a708ef24",
-                  "properties": {
-                    "field": "account_id",
-                    "fieldSrc": "field",
-                    "operator": "equal",
-                    "value": [
-                      "$account_id"
-                    ],
-                    "valueError": [
-                      null
-                    ],
-                    "valueSrc": [
-                      "value"
-                    ],
-                    "valueType": [
-                      "text"
-                    ]
-                  },
-                  "type": "rule"
-                },
-                {
-                  "id": "89989ba9-0123-4456-b89a-b193a70d7822",
-                  "properties": {
-                    "field": "instrument_uid",
-                    "fieldSrc": "field",
-                    "operator": "equal",
-                    "value": [
-                      "e6123145-9665-43e0-8413-cd61b8aa9b13"
-                    ],
-                    "valueError": [
-                      null
-                    ],
-                    "valueSrc": [
-                      "value"
-                    ],
-                    "valueType": [
-                      "text"
-                    ]
-                  },
-                  "type": "rule"
-                }
-              ],
-              "id": "aaab8ba8-0123-4456-b89a-b193a6ca4801",
-              "type": "group"
-            },
-            "whereString": "(account_id = '$account_id' AND instrument_uid = 'e6123145-9665-43e0-8413-cd61b8aa9b13')"
-          },
-          "table": "position_snapshots"
-        }
-      ],
-      "title": "Позиция SBER",
-      "type": "gauge"
-    },
-    {
-      "datasource": {
-        "type": "grafana-postgresql-datasource",
-        "uid": "be6b5l4dvc0e8f"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": true,
-            "axisColorMode": "text",
-            "axisGridShow": false,
-            "axisLabel": "",
-            "axisPlacement": "left",
-            "fillOpacity": 80,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineWidth": 1,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "decimals": 0,
-          "mappings": [
-            {
-              "options": {
-                "0": {
-                  "color": "text",
-                  "index": 2
-                },
-                "1": {
-                  "color": "green",
-                  "index": 0
-                },
-                "-1": {
-                  "color": "red",
-                  "index": 1
-                }
-              },
-              "type": "value"
-            }
-          ],
-          "max": 1,
-          "min": -1,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 8
-      },
-      "id": 4,
-      "interval": "10m",
-      "options": {
-        "barRadius": 0,
-        "barWidth": 0.97,
-        "fullHighlight": false,
-        "groupWidth": 0.7,
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "orientation": "auto",
-        "showValue": "auto",
-        "stacking": "none",
-        "text": {
-          "valueSize": 1
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        },
-        "xField": "time_utc",
-        "xTickLabelRotation": 0,
-        "xTickLabelSpacing": 100
-      },
-      "pluginVersion": "11.4.0",
-      "targets": [
-        {
-          "editorMode": "builder",
-          "format": "table",
-          "rawSql": "SELECT time_utc, quantity FROM signals WHERE time_utc >= '2025-01-03 06:00:00.000' ORDER BY time_utc ASC ",
-          "refId": "A",
-          "sql": {
-            "columns": [
-              {
-                "parameters": [
-                  {
-                    "name": "time_utc",
-                    "type": "functionParameter"
-                  }
-                ],
-                "type": "function"
-              },
-              {
-                "parameters": [
-                  {
-                    "name": "quantity",
-                    "type": "functionParameter"
-                  }
-                ],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ],
-            "orderBy": {
-              "property": {
-                "name": [
-                  "time_utc"
-                ],
-                "type": "string"
-              },
-              "type": "property"
-            },
-            "orderByDirection": "ASC",
-            "whereJsonTree": {
-              "children1": [
-                {
-                  "id": "9aaa9b98-89ab-4cde-b012-3193cec6fb40",
-                  "properties": {
-                    "field": "time_utc",
-                    "fieldSrc": "field",
-                    "operator": "greater_or_equal",
-                    "value": [
-                      "2025-01-03 06:00:00"
-                    ],
-                    "valueError": [
-                      null
-                    ],
-                    "valueSrc": [
-                      "value"
-                    ],
-                    "valueType": [
-                      "datetime"
-                    ]
-                  },
-                  "type": "rule"
-                }
-              ],
-              "id": "8a9888ab-0123-4456-b89a-b193c620cb41",
-              "type": "group"
-            },
-            "whereString": "time_utc >= '2025-01-03 06:00:00.000'"
-          },
-          "table": "signals"
-        }
-      ],
-      "title": "Торговые сигналы",
-      "type": "barchart"
-    },
-    {
-      "datasource": {
-        "type": "grafana-postgresql-datasource",
-        "uid": "be6b5l4dvc0e8f"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
             "mode": "palette-classic"
           },
           "custom": {
@@ -906,9 +957,9 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
-        "w": 9,
-        "x": 12,
+        "h": 7,
+        "w": 6,
+        "x": 3,
         "y": 8
       },
       "id": 8,
@@ -927,9 +978,10 @@
       "pluginVersion": "11.4.0",
       "targets": [
         {
-          "editorMode": "builder",
+          "editorMode": "code",
           "format": "table",
-          "rawSql": "SELECT time_utc, expected_yield FROM portfolio_snapshots WHERE account_id = '$account_id' ORDER BY time_utc DESC LIMIT 5000 ",
+          "rawQuery": true,
+          "rawSql": "SELECT time_utc, expected_yield FROM tinvest_portfolio_snapshots WHERE account_id = '$account_id' ORDER BY time_utc DESC LIMIT 500 ",
           "refId": "A",
           "sql": {
             "columns": [
@@ -1014,6 +1066,321 @@
       "fieldConfig": {
         "defaults": {
           "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": true,
+            "axisColorMode": "text",
+            "axisGridShow": false,
+            "axisLabel": "",
+            "axisPlacement": "left",
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 0,
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "text",
+                  "index": 2
+                },
+                "1": {
+                  "color": "green",
+                  "index": 0
+                },
+                "-1": {
+                  "color": "red",
+                  "index": 1
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "max": 1,
+          "min": -1,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 9,
+        "y": 8
+      },
+      "id": 4,
+      "interval": "10m",
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.97,
+        "fullHighlight": false,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "orientation": "auto",
+        "showValue": "auto",
+        "stacking": "none",
+        "text": {
+          "valueSize": 1
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "xField": "time_utc",
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 100
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "editorMode": "builder",
+          "format": "table",
+          "rawSql": "SELECT time_utc, action FROM trading_signals WHERE predictor_type = 1 LIMIT 50 ",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "time_utc",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "action",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50,
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "9b9aaab8-0123-4456-b89a-b1956f123521",
+                  "properties": {
+                    "field": "predictor_type",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      1
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "number"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "b9aa8ba9-0123-4456-b89a-b1956f0f94a0",
+              "type": "group"
+            },
+            "whereString": "predictor_type = 1"
+          },
+          "table": "trading_signals"
+        }
+      ],
+      "title": "Торговые сигналы - SB3 DQN",
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "be6b5l4dvc0e8f"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 2,
+          "displayName": "Сумма (руб.)",
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              }
+            ]
+          },
+          "unit": "locale"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 3,
+        "x": 0,
+        "y": 15
+      },
+      "id": 9,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "be6b5l4dvc0e8f"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT SUM(payment) FROM tinvest_operations WHERE (account_id = '$account_id' AND operation_type = 19)",
+          "refId": "B",
+          "sql": {
+            "columns": [
+              {
+                "name": "SUM",
+                "parameters": [
+                  {
+                    "name": "payment",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50,
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "a8ba99a9-89ab-4cde-b012-31940741143f",
+                  "properties": {
+                    "field": "account_id",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      "$account_id"
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                },
+                {
+                  "id": "a999aa8b-4567-489a-bcde-f194074225b8",
+                  "properties": {
+                    "field": "operation_type",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      19
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "number"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "89a8b8a9-0123-4456-b89a-b19406ecc9c5",
+              "type": "group"
+            },
+            "whereString": "(account_id = '$account_id' AND operation_type = 19)"
+          },
+          "table": "operations"
+        }
+      ],
+      "title": "Комиссии за все время",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "be6b5l4dvc0e8f"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
             "mode": "thresholds"
           },
           "custom": {
@@ -1041,10 +1408,342 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
-        "w": 8,
+        "h": 7,
+        "w": 6,
+        "x": 3,
+        "y": 15
+      },
+      "id": 2,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT date, payment FROM tinvest_operations WHERE (operation_type = 19 AND account_id = '$account_id') ORDER BY date DESC ",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "date",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "payment",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "orderBy": {
+              "property": {
+                "name": [
+                  "date"
+                ],
+                "type": "string"
+              },
+              "type": "property"
+            },
+            "orderByDirection": "DESC",
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "9aa99888-0123-4456-b89a-b193a6d82a1f",
+                  "properties": {
+                    "field": "operation_type",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      19
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "number"
+                    ]
+                  },
+                  "type": "rule"
+                },
+                {
+                  "id": "ab98b899-cdef-4012-b456-7193a6d93648",
+                  "properties": {
+                    "field": "account_id",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      "$account_id"
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "aaab8ba8-0123-4456-b89a-b193a6ca4801",
+              "type": "group"
+            },
+            "whereString": "(operation_type = 19 AND account_id = '$account_id')"
+          },
+          "table": "operations"
+        }
+      ],
+      "title": "Комиссии брокера и биржи",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "be6b5l4dvc0e8f"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": true,
+            "axisColorMode": "text",
+            "axisGridShow": false,
+            "axisLabel": "",
+            "axisPlacement": "left",
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 0,
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "text",
+                  "index": 2
+                },
+                "1": {
+                  "color": "green",
+                  "index": 0
+                },
+                "-1": {
+                  "color": "red",
+                  "index": 1
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "max": 1,
+          "min": -1,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 9,
+        "y": 15
+      },
+      "id": 12,
+      "interval": "10m",
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.97,
+        "fullHighlight": false,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "orientation": "auto",
+        "showValue": "auto",
+        "stacking": "none",
+        "text": {
+          "valueSize": 1
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "xField": "time_utc",
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 100
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "editorMode": "builder",
+          "format": "table",
+          "rawSql": "SELECT time_utc, action FROM trading_signals WHERE predictor_type = 3 LIMIT 50 ",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "time_utc",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "action",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50,
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "9b9aaab8-0123-4456-b89a-b1956f123521",
+                  "properties": {
+                    "field": "predictor_type",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      3
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "number"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "b9aa8ba9-0123-4456-b89a-b1956f0f94a0",
+              "type": "group"
+            },
+            "whereString": "predictor_type = 3"
+          },
+          "table": "trading_signals"
+        }
+      ],
+      "title": "Торговые сигналы - Trend Following",
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "be6b5l4dvc0e8f"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 9,
         "x": 0,
-        "y": 16
+        "y": 22
       },
       "id": 3,
       "options": {
@@ -1062,9 +1761,10 @@
       "pluginVersion": "11.4.0",
       "targets": [
         {
-          "editorMode": "builder",
+          "editorMode": "code",
           "format": "table",
-          "rawSql": "SELECT date, quantity, price, type FROM operations WHERE (account_id = '$account_id' AND operation_type <> 19) ORDER BY date DESC ",
+          "rawQuery": true,
+          "rawSql": "SELECT date, quantity, price, type FROM tinvest_operations WHERE (account_id = '$account_id' AND operation_type <> 19) ORDER BY date DESC ",
           "refId": "A",
           "sql": {
             "columns": [
@@ -1190,16 +1890,52 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "palette-classic"
           },
           "custom": {
-            "align": "auto",
-            "cellOptions": {
-              "type": "auto"
+            "axisBorderShow": false,
+            "axisCenteredZero": true,
+            "axisColorMode": "text",
+            "axisGridShow": false,
+            "axisLabel": "",
+            "axisPlacement": "left",
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
             },
-            "inspect": false
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
-          "mappings": [],
+          "decimals": 0,
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "text",
+                  "index": 2
+                },
+                "1": {
+                  "color": "green",
+                  "index": 0
+                },
+                "-1": {
+                  "color": "red",
+                  "index": 1
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "max": 1,
+          "min": -1,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -1212,324 +1948,50 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "short"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
-        "w": 4,
-        "x": 8,
-        "y": 16
+        "h": 7,
+        "w": 12,
+        "x": 9,
+        "y": 22
       },
-      "id": 2,
+      "id": 11,
+      "interval": "10m",
       "options": {
-        "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
+        "barRadius": 0,
+        "barWidth": 0.97,
+        "fullHighlight": false,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
         },
-        "showHeader": true
+        "orientation": "auto",
+        "showValue": "auto",
+        "stacking": "none",
+        "text": {
+          "valueSize": 1
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "xField": "time_utc",
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 100
       },
       "pluginVersion": "11.4.0",
       "targets": [
         {
           "editorMode": "builder",
           "format": "table",
-          "rawSql": "SELECT date, payment FROM operations WHERE (operation_type = 19 AND account_id = '$account_id') ORDER BY date DESC ",
-          "refId": "A",
-          "sql": {
-            "columns": [
-              {
-                "parameters": [
-                  {
-                    "name": "date",
-                    "type": "functionParameter"
-                  }
-                ],
-                "type": "function"
-              },
-              {
-                "parameters": [
-                  {
-                    "name": "payment",
-                    "type": "functionParameter"
-                  }
-                ],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ],
-            "orderBy": {
-              "property": {
-                "name": [
-                  "date"
-                ],
-                "type": "string"
-              },
-              "type": "property"
-            },
-            "orderByDirection": "DESC",
-            "whereJsonTree": {
-              "children1": [
-                {
-                  "id": "9aa99888-0123-4456-b89a-b193a6d82a1f",
-                  "properties": {
-                    "field": "operation_type",
-                    "fieldSrc": "field",
-                    "operator": "equal",
-                    "value": [
-                      19
-                    ],
-                    "valueError": [
-                      null
-                    ],
-                    "valueSrc": [
-                      "value"
-                    ],
-                    "valueType": [
-                      "number"
-                    ]
-                  },
-                  "type": "rule"
-                },
-                {
-                  "id": "ab98b899-cdef-4012-b456-7193a6d93648",
-                  "properties": {
-                    "field": "account_id",
-                    "fieldSrc": "field",
-                    "operator": "equal",
-                    "value": [
-                      "$account_id"
-                    ],
-                    "valueError": [
-                      null
-                    ],
-                    "valueSrc": [
-                      "value"
-                    ],
-                    "valueType": [
-                      "text"
-                    ]
-                  },
-                  "type": "rule"
-                }
-              ],
-              "id": "aaab8ba8-0123-4456-b89a-b193a6ca4801",
-              "type": "group"
-            },
-            "whereString": "(operation_type = 19 AND account_id = '$account_id')"
-          },
-          "table": "operations"
-        }
-      ],
-      "title": "Комиссии брокера и биржи",
-      "type": "table"
-    },
-    {
-      "datasource": {
-        "type": "grafana-postgresql-datasource",
-        "uid": "be6b5l4dvc0e8f"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "decimals": 2,
-          "displayName": "Сумма (руб.)",
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "red",
-                "value": null
-              }
-            ]
-          },
-          "unit": "locale"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 3,
-        "x": 12,
-        "y": 16
-      },
-      "id": 9,
-      "options": {
-        "minVizHeight": 75,
-        "minVizWidth": 75,
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "/.*/",
-          "values": false
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true,
-        "sizing": "auto"
-      },
-      "pluginVersion": "11.4.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "grafana-postgresql-datasource",
-            "uid": "be6b5l4dvc0e8f"
-          },
-          "editorMode": "code",
-          "format": "table",
-          "hide": false,
-          "rawQuery": true,
-          "rawSql": "SELECT SUM(payment) FROM operations WHERE (account_id = '$account_id' AND operation_type = 19)",
-          "refId": "B",
-          "sql": {
-            "columns": [
-              {
-                "name": "SUM",
-                "parameters": [
-                  {
-                    "name": "payment",
-                    "type": "functionParameter"
-                  }
-                ],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ],
-            "limit": 50,
-            "whereJsonTree": {
-              "children1": [
-                {
-                  "id": "a8ba99a9-89ab-4cde-b012-31940741143f",
-                  "properties": {
-                    "field": "account_id",
-                    "fieldSrc": "field",
-                    "operator": "equal",
-                    "value": [
-                      "$account_id"
-                    ],
-                    "valueError": [
-                      null
-                    ],
-                    "valueSrc": [
-                      "value"
-                    ],
-                    "valueType": [
-                      "text"
-                    ]
-                  },
-                  "type": "rule"
-                },
-                {
-                  "id": "a999aa8b-4567-489a-bcde-f194074225b8",
-                  "properties": {
-                    "field": "operation_type",
-                    "fieldSrc": "field",
-                    "operator": "equal",
-                    "value": [
-                      19
-                    ],
-                    "valueError": [
-                      null
-                    ],
-                    "valueSrc": [
-                      "value"
-                    ],
-                    "valueType": [
-                      "number"
-                    ]
-                  },
-                  "type": "rule"
-                }
-              ],
-              "id": "89a8b8a9-0123-4456-b89a-b19406ecc9c5",
-              "type": "group"
-            },
-            "whereString": "(account_id = '$account_id' AND operation_type = 19)"
-          },
-          "table": "operations"
-        }
-      ],
-      "title": "Комиссии за все время",
-      "type": "gauge"
-    },
-    {
-      "datasource": {
-        "type": "grafana-postgresql-datasource",
-        "uid": "be6b5l4dvc0e8f"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "decimals": 2,
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "locale"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 3,
-        "x": 15,
-        "y": 16
-      },
-      "id": 10,
-      "options": {
-        "minVizHeight": 75,
-        "minVizWidth": 75,
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "/^C$/",
-          "values": false
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true,
-        "sizing": "auto"
-      },
-      "pluginVersion": "11.4.0",
-      "targets": [
-        {
-          "editorMode": "code",
-          "format": "table",
-          "rawQuery": true,
-          "rawSql": "SELECT portfolio FROM portfolio_snapshots WHERE account_id = '$account_id' ORDER BY time_utc DESC LIMIT 1\r\n",
+          "rawSql": "SELECT time_utc, action FROM trading_signals WHERE predictor_type = 2 LIMIT 50 ",
           "refId": "A",
           "sql": {
             "columns": [
@@ -1545,89 +2007,7 @@
               {
                 "parameters": [
                   {
-                    "name": "portfolio",
-                    "type": "functionParameter"
-                  }
-                ],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ],
-            "orderBy": {
-              "property": {
-                "name": [
-                  "time_utc"
-                ],
-                "type": "string"
-              },
-              "type": "property"
-            },
-            "orderByDirection": "DESC",
-            "whereJsonTree": {
-              "children1": [
-                {
-                  "id": "aaaab898-89ab-4cde-b012-3193a7181ae4",
-                  "properties": {
-                    "field": "account_id",
-                    "fieldSrc": "field",
-                    "operator": "equal",
-                    "value": [
-                      "$account_id"
-                    ],
-                    "valueError": [
-                      null
-                    ],
-                    "valueSrc": [
-                      "value"
-                    ],
-                    "valueType": [
-                      "text"
-                    ]
-                  },
-                  "type": "rule"
-                },
-                {
-                  "id": "a8ababbb-4567-489a-bcde-f1940741cf07",
-                  "properties": {
-                    "fieldSrc": "field",
-                    "value": [],
-                    "valueSrc": []
-                  },
-                  "type": "rule"
-                }
-              ],
-              "id": "aaab8ba8-0123-4456-b89a-b193a6ca4801",
-              "type": "group"
-            },
-            "whereString": "account_id = '$account_id'"
-          },
-          "table": "portfolio_snapshots"
-        },
-        {
-          "datasource": {
-            "type": "grafana-postgresql-datasource",
-            "uid": "be6b5l4dvc0e8f"
-          },
-          "editorMode": "code",
-          "format": "table",
-          "hide": false,
-          "rawQuery": true,
-          "rawSql": "SELECT SUM(payment) FROM operations WHERE (account_id = '$account_id' AND operation_type = 19)",
-          "refId": "B",
-          "sql": {
-            "columns": [
-              {
-                "name": "SUM",
-                "parameters": [
-                  {
-                    "name": "payment",
+                    "name": "action",
                     "type": "functionParameter"
                   }
                 ],
@@ -1646,34 +2026,13 @@
             "whereJsonTree": {
               "children1": [
                 {
-                  "id": "a8ba99a9-89ab-4cde-b012-31940741143f",
+                  "id": "9b9aaab8-0123-4456-b89a-b1956f123521",
                   "properties": {
-                    "field": "account_id",
+                    "field": "predictor_type",
                     "fieldSrc": "field",
                     "operator": "equal",
                     "value": [
-                      "$account_id"
-                    ],
-                    "valueError": [
-                      null
-                    ],
-                    "valueSrc": [
-                      "value"
-                    ],
-                    "valueType": [
-                      "text"
-                    ]
-                  },
-                  "type": "rule"
-                },
-                {
-                  "id": "a999aa8b-4567-489a-bcde-f194074225b8",
-                  "properties": {
-                    "field": "operation_type",
-                    "fieldSrc": "field",
-                    "operator": "equal",
-                    "value": [
-                      19
+                      2
                     ],
                     "valueError": [
                       null
@@ -1688,27 +2047,16 @@
                   "type": "rule"
                 }
               ],
-              "id": "89a8b8a9-0123-4456-b89a-b19406ecc9c5",
+              "id": "b9aa8ba9-0123-4456-b89a-b1956f0f94a0",
               "type": "group"
             },
-            "whereString": "(account_id = '$account_id' AND operation_type = 19)"
+            "whereString": "predictor_type = 2"
           },
-          "table": "operations"
-        },
-        {
-          "datasource": {
-            "name": "Expression",
-            "type": "__expr__",
-            "uid": "__expr__"
-          },
-          "expression": "$A-$B",
-          "hide": false,
-          "refId": "C",
-          "type": "math"
+          "table": "trading_signals"
         }
       ],
-      "title": "Портфель без учета комиссий",
-      "type": "gauge"
+      "title": "Торговые сигналы - Random Walk",
+      "type": "barchart"
     }
   ],
   "preload": false,
@@ -1719,16 +2067,18 @@
     "list": [
       {
         "current": {
-          "text": "fc66cf9b-8fb8-4d9e-ba79-a5e8b87c5aa7",
-          "value": "fc66cf9b-8fb8-4d9e-ba79-a5e8b87c5aa7"
+          "text": "f7c33024-67bc-428e-a149-e916e87e79ad",
+          "value": "f7c33024-67bc-428e-a149-e916e87e79ad"
         },
-        "description": "T-invest account ID",
-        "hide": 2,
+        "definition": "SELECT DISTINCT(account_id) FROM public.tinvest_operations",
+        "description": "sb3=a48c2760 rw= f7c33024 trf=0e284896",
         "label": "account_id",
         "name": "account_id",
-        "query": "fc66cf9b-8fb8-4d9e-ba79-a5e8b87c5aa7",
-        "skipUrlSync": true,
-        "type": "constant"
+        "options": [],
+        "query": "SELECT DISTINCT(account_id) FROM public.tinvest_operations",
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
       }
     ]
   },
@@ -1740,6 +2090,6 @@
   "timezone": "browser",
   "title": "Trading Dashboard",
   "uid": "ee6b64nmcqeioa",
-  "version": 117,
+  "version": 160,
   "weekStart": ""
 }
