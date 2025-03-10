@@ -1063,6 +1063,7 @@
         "type": "grafana-postgresql-datasource",
         "uid": "be6b5l4dvc0e8f"
       },
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1165,9 +1166,10 @@
       "pluginVersion": "11.4.0",
       "targets": [
         {
-          "editorMode": "builder",
+          "editorMode": "code",
           "format": "table",
-          "rawSql": "SELECT time_utc, action FROM trading_signals WHERE predictor_type = 1 LIMIT 50 ",
+          "rawQuery": true,
+          "rawSql": "SELECT time_utc, action FROM trading_signals WHERE predictor_type = 1 AND time_utc >= '$current_date' ORDER BY time_utc LIMIT 5000 ",
           "refId": "A",
           "sql": {
             "columns": [
@@ -1231,7 +1233,7 @@
           "table": "trading_signals"
         }
       ],
-      "title": "Торговые сигналы - SB3 DQN",
+      "title": "Торговые сигналы - SB3 DQN => a48c2760",
       "type": "barchart"
     },
     {
@@ -1534,6 +1536,7 @@
         "type": "grafana-postgresql-datasource",
         "uid": "be6b5l4dvc0e8f"
       },
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1636,9 +1639,10 @@
       "pluginVersion": "11.4.0",
       "targets": [
         {
-          "editorMode": "builder",
+          "editorMode": "code",
           "format": "table",
-          "rawSql": "SELECT time_utc, action FROM trading_signals WHERE predictor_type = 3 LIMIT 50 ",
+          "rawQuery": true,
+          "rawSql": "SELECT time_utc, action FROM trading_signals WHERE predictor_type = 3 AND time_utc >= '$current_date' ORDER BY time_utc LIMIT 5000 ",
           "refId": "A",
           "sql": {
             "columns": [
@@ -1702,7 +1706,7 @@
           "table": "trading_signals"
         }
       ],
-      "title": "Торговые сигналы - Trend Following",
+      "title": "Торговые сигналы - Trend Following => 0e284896",
       "type": "barchart"
     },
     {
@@ -1989,9 +1993,10 @@
       "pluginVersion": "11.4.0",
       "targets": [
         {
-          "editorMode": "builder",
+          "editorMode": "code",
           "format": "table",
-          "rawSql": "SELECT time_utc, action FROM trading_signals WHERE predictor_type = 2 LIMIT 50 ",
+          "rawQuery": true,
+          "rawSql": "SELECT time_utc, action FROM trading_signals WHERE predictor_type = 2 AND time_utc >= '$current_date' ORDER BY time_utc LIMIT 5000 ",
           "refId": "A",
           "sql": {
             "columns": [
@@ -2055,7 +2060,7 @@
           "table": "trading_signals"
         }
       ],
-      "title": "Торговые сигналы - Random Walk",
+      "title": "Торговые сигналы - Random Walk => f7c33024",
       "type": "barchart"
     }
   ],
@@ -2067,8 +2072,8 @@
     "list": [
       {
         "current": {
-          "text": "f7c33024-67bc-428e-a149-e916e87e79ad",
-          "value": "f7c33024-67bc-428e-a149-e916e87e79ad"
+          "text": "a48c2760-20ae-4e0a-8d4b-4005cdb10d70",
+          "value": "a48c2760-20ae-4e0a-8d4b-4005cdb10d70"
         },
         "definition": "SELECT DISTINCT(account_id) FROM public.tinvest_operations",
         "description": "sb3=a48c2760 rw= f7c33024 trf=0e284896",
@@ -2076,6 +2081,20 @@
         "name": "account_id",
         "options": [],
         "query": "SELECT DISTINCT(account_id) FROM public.tinvest_operations",
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      },
+      {
+        "current": {
+          "text": "2025-03-10",
+          "value": "2025-03-10"
+        },
+        "definition": "SELECT to_char(current_date, 'YYYY-MM-DD');",
+        "description": "",
+        "name": "current_date",
+        "options": [],
+        "query": "SELECT to_char(current_date, 'YYYY-MM-DD');",
         "refresh": 1,
         "regex": "",
         "type": "query"
@@ -2090,6 +2109,6 @@
   "timezone": "browser",
   "title": "Trading Dashboard",
   "uid": "ee6b64nmcqeioa",
-  "version": 160,
+  "version": 166,
   "weekStart": ""
 }
