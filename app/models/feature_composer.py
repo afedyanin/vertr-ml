@@ -53,19 +53,12 @@ class FeatureComposer:
         df["feature_ret_m1"] = df["feature_close_return"].shift(1)
         df["feature_ret_m2"] = df["feature_close_return"].shift(2)
         df["feature_ret_m3"] = df["feature_close_return"].shift(3)
-        df["feature_ret_m4"] = df["feature_close_return"].shift(4)
-        df["feature_ret_m5"] = df["feature_close_return"].shift(5)
-        df["feature_ret_m6"] = df["feature_close_return"].shift(6)
-        df["feature_ret_m7"] = df["feature_close_return"].shift(7)
-        df["feature_ret_m8"] = df["feature_close_return"].shift(8)
         return df
 
     @staticmethod
     def _add_values(df: pd.DataFrame) -> pd.DataFrame:
         df["feature_value_return"] = df["value"]#.pct_change(1)
         df["feature_val_m1"] = df["feature_value_return"].shift(1)
-        df["feature_val_m2"] = df["feature_value_return"].shift(2)
-        df["feature_val_m3"] = df["feature_value_return"].shift(3)
         return df
 
 
