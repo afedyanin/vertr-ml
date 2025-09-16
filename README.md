@@ -17,6 +17,7 @@
 - [Time Series Algorithms Recipes](https://github.com/Apress/time-series-algorithm-recipes)
 - [Time Series Forecasting in Python](https://github.com/marcopeix/TimeSeriesForecastingInPython)
 - [Practical Statistics for Data Scientists](https://github.com/gedeck/practical-statistics-for-data-scientists)
+- [Pandas Workout](https://github.com/reuven/pandas-workout)
 
 ## Web Books
 
