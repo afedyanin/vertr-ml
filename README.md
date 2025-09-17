@@ -4,9 +4,14 @@
 
 ## Books source code 
 
+### Wip
+
+- [Deep Learning with PyTorch Step-by-Step](https://github.com/dvgodoy/PyTorchStepByStep)
+
+### Backlog
+
 - [Advanced Forecasting with Python](https://github.com/Apress/advanced-forecasting-python)
 - [Deep Learning For Time Series Cookbook](https://github.com/PacktPublishing/Deep-Learning-for-Time-Series-Data-Cookbook)
-- [Deep Learning with PyTorch Step-by-Step](https://github.com/dvgodoy/PyTorchStepByStep)
 - [Engineering Deep Learning Systems](https://github.com/orca3/MiniAutoML)
 - [ML for Trading - 2nd Edition](https://github.com/stefan-jansen/machine-learning-for-trading)
 - [Mastering Financial Pattern Recognition](https://github.com/sofienkaabar/mastering-financial-pattern-recognition)
