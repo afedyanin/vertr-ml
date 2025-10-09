@@ -2,15 +2,7 @@
 
 ## ML prediction models for Vertr platform
 
-## Resources
-
-- [Time Series Forecasting using Pytorch](https://www.geeksforgeeks.org/data-analysis/time-series-forecasting-using-pytorch/)
-- [Predicting Stock Prices with Deep Learning](https://github.com/jinglescode/time-series-forecasting-pytorch)
-- [Predicting Stock Price using LSTM model, PyTorch](https://www.kaggle.com/code/taronzakaryan/predicting-stock-price-using-lstm-model-pytorch)
-- [stock-prediction-pytorch](https://www.kaggle.com/code/rodsaldanha/stock-prediction-pytorch)
-- 
-- [Stock Price Prediction with PyTorch](https://medium.com/swlh/stock-price-prediction-with-pytorch-37f52ae84632)
-- [Stock Market prediction with PyTorch](https://github.com/RodolfoLSS/stock-prediction-pytorch)
+### Resources
 
 - [Deep-Robust-Statistical-Arbitrage](https://github.com/YINDAIYING/Deep-Robust-Statistical-Arbitrage)
 - [Detecting data-driven robust statistical arbitrage strategies with deep neural networks](https://arxiv.org/abs/2203.03179)
@@ -20,7 +12,6 @@
 - [Statistical Arbitrage From Scratch](https://python.plainenglish.io/statistical-arbitrage-from-scratch-a5aaf6e0711d)
 
 - [Typical Algorithms for Estimating Hurst Exponent of Time Sequence: A Data Analyst's Perspective](https://arxiv.org/abs/2310.19051)
-
 
 - [High-frequency trading simulation with Stream Analytics](https://learn.microsoft.com/en-us/azure/stream-analytics/stream-analytics-high-frequency-trading)
 - [High Frequency Trading Framework with Machine/Deep Learning](https://github.com/bradleyboyuyang/ML-HFT)
@@ -33,24 +24,23 @@
 - [Hight Frequency Trading(HFT) Papers](https://github.com/baobach/HFT_Papers)
 
  
-
-
 ### PyTorch Forecasting
 
 - [PyTorch Forecasting](https://pytorch-forecasting.readthedocs.io/en/stable/)
 - [pytorch-forecasting](https://github.com/sktime/pytorch-forecasting)
+
 - [Time series with PyTorch](https://www.kaggle.com/code/aneridalwadi/time-series-with-pytorch)
+- [Time Series Forecasting using Pytorch](https://www.geeksforgeeks.org/data-analysis/time-series-forecasting-using-pytorch/)
+- [Predicting Stock Prices with Deep Learning](https://github.com/jinglescode/time-series-forecasting-pytorch)
+- [Predicting Stock Price using LSTM model, PyTorch](https://www.kaggle.com/code/taronzakaryan/predicting-stock-price-using-lstm-model-pytorch)
+- [stock-prediction-pytorch](https://www.kaggle.com/code/rodsaldanha/stock-prediction-pytorch)
+- [Stock Price Prediction with PyTorch](https://medium.com/swlh/stock-price-prediction-with-pytorch-37f52ae84632)
+- [Stock Market prediction with PyTorch](https://github.com/RodolfoLSS/stock-prediction-pytorch)
 
-###
 
-## Books source code 
-
-### Wip
+### Books source code 
 
 - [Deep Learning with PyTorch Step-by-Step](https://github.com/dvgodoy/PyTorchStepByStep)
-
-### Backlog
-
 - [Advanced Forecasting with Python](https://github.com/Apress/advanced-forecasting-python)
 - [Deep Learning For Time Series Cookbook](https://github.com/PacktPublishing/Deep-Learning-for-Time-Series-Data-Cookbook)
 - [Engineering Deep Learning Systems](https://github.com/orca3/MiniAutoML)
@@ -64,15 +54,3 @@
 - [Time Series Forecasting in Python](https://github.com/marcopeix/TimeSeriesForecastingInPython)
 - [Practical Statistics for Data Scientists](https://github.com/gedeck/practical-statistics-for-data-scientists)
 - [Pandas Workout](https://github.com/reuven/pandas-workout)
-
-## Web Books
-
-- [Responsive-Web-Design-with-HTML5-and-CSS-Third-Edition](https://github.com/PacktPublishing/Responsive-Web-Design-with-HTML5-and-CSS-Third-Edition)
-- [Большая книга CSS, 4-е издание](https://github.com/mrightman/css_4e)
-- [Blazor Web Development Cookbook](https://github.com/PacktPublishing/Blazor-Web-Development-Cookbook)
-- [Web-Development-with-Blazor, Third-Edition](https://github.com/PacktPublishing/Web-Development-with-Blazor-Third-Edition)
-
-
-
-
-
