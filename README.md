@@ -29,13 +29,13 @@
 - [PyTorch Forecasting](https://pytorch-forecasting.readthedocs.io/en/stable/)
 - [pytorch-forecasting](https://github.com/sktime/pytorch-forecasting)
 
-- [Time series with PyTorch](https://www.kaggle.com/code/aneridalwadi/time-series-with-pytorch)
-- [Time Series Forecasting using Pytorch](https://www.geeksforgeeks.org/data-analysis/time-series-forecasting-using-pytorch/)
-- [Predicting Stock Prices with Deep Learning](https://github.com/jinglescode/time-series-forecasting-pytorch)
-- [Predicting Stock Price using LSTM model, PyTorch](https://www.kaggle.com/code/taronzakaryan/predicting-stock-price-using-lstm-model-pytorch)
-- [stock-prediction-pytorch](https://www.kaggle.com/code/rodsaldanha/stock-prediction-pytorch)
-- [Stock Price Prediction with PyTorch](https://medium.com/swlh/stock-price-prediction-with-pytorch-37f52ae84632)
-- [Stock Market prediction with PyTorch](https://github.com/RodolfoLSS/stock-prediction-pytorch)
+- [x] [Time series with PyTorch](https://www.kaggle.com/code/aneridalwadi/time-series-with-pytorch)
+- [x] [Time Series Forecasting using Pytorch](https://www.geeksforgeeks.org/data-analysis/time-series-forecasting-using-pytorch/)
+- [x] [Predicting Stock Prices with Deep Learning](https://github.com/jinglescode/time-series-forecasting-pytorch)
+- [x] [Predicting Stock Price using LSTM model, PyTorch](https://www.kaggle.com/code/taronzakaryan/predicting-stock-price-using-lstm-model-pytorch)
+- [x] [stock-prediction-pytorch](https://www.kaggle.com/code/rodsaldanha/stock-prediction-pytorch)
+- [x] [Stock Price Prediction with PyTorch](https://medium.com/swlh/stock-price-prediction-with-pytorch-37f52ae84632)
+- [x] [Stock Market prediction with PyTorch](https://github.com/RodolfoLSS/stock-prediction-pytorch)
 
 
 ### Books source code 
