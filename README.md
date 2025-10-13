@@ -2,6 +2,15 @@
 
 ## ML prediction models for Vertr platform
 
+### HMM
+
+- [Hidden Markov Models for Stock Market Prediction](https://arxiv.org/abs/2310.03775)
+- [Stock Price Prediction Using HMM, LSTM, ARIMA, and RNN](https://github.com/Nikhil-Kumar-Patel/Hidden-Makov-Model)
+- [hmmlearn](https://github.com/hmmlearn/hmmlearn)
+- [TimeSynth](https://github.com/TimeSynth/TimeSynth)
+- [Nixtla Open Source Time Series Ecosystem](https://github.com/Nixtla)
+
+
 ### Resources
 
 - [Deep-Robust-Statistical-Arbitrage](https://github.com/YINDAIYING/Deep-Robust-Statistical-Arbitrage)
