@@ -1,4 +1,3 @@
-import os
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -8,32 +7,20 @@ class PgSqlSettings(BaseSettings):
         env_prefix="PG_",
         extra="ignore"
     )
-    dbname: str
-    host: str
-    port: int
-    user: str
-    password: str
+    dbname: str = "postgres"
+    host: str = "localhost"
+    port: int = 5432
+    user: str = "postgres"
+    password: str = "password"
 
     def get_database_url(self):
         return f"postgresql+psycopg2://{self.user}:{self.password}@{self.host}:{self.port}/{self.dbname}"
 
 
-class TinvestSettings(BaseSettings):
-    model_config = SettingsConfigDict(
-        env_file='../.env',
-        env_prefix="TINVEST_",
-        extra="ignore"
-    )
-    token: str
-    account_id: str
-
-
 if __name__ == "__main__":
 
-    tinvest_settings = TinvestSettings()
-    print(tinvest_settings.model_dump())
-
     db_settings = PgSqlSettings()
+    print(db_settings.get_database_url())
     print(db_settings.model_dump())
 
 

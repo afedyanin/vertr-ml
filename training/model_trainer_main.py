@@ -6,7 +6,7 @@ import torch as th
 from app.configuration.config import PgSqlSettings
 from app.models.data.candle import Interval
 from app.models.gym_env_factory import register_single_asset_trading_env
-from app.repositories.sb3_models import Sb3ModelsRepository
+from app.repositories.persistent_models import Sb3ModelsRepository
 from app.repositories.tinvest_candles import TinvestCandlesRepository
 from training.model_trainer import ModelTrainer
 
