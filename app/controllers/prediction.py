@@ -1,17 +1,10 @@
 from fastapi import APIRouter
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
-from pydantic import BaseModel
 
 from app.configuration.config import PgSqlSettings
+from app.models.prediction import PredictionRequest
 from app.services.prediction import PredictionService
-
-class PredictionRequest(BaseModel):
-    model_type: str
-    csv: str | None
-
-class PredictionResponse(BaseModel):
-    csv: str | None
 
 prediction_router = APIRouter()
 

@@ -3,7 +3,7 @@ import pandas as pd
 from io import StringIO
 from pandas import DataFrame
 from app.configuration.config import PgSqlSettings
-from app.controllers.prediction import PredictionRequest, PredictionResponse
+from app.models.prediction import PredictionRequest, PredictionResponse
 from app.repositories.persistent_models import PersistentModelsRepository
 
 
