@@ -1,16 +1,20 @@
-import pandas as pd
+from datetime import datetime, timezone
+from typing import Dict
 from pandas import DataFrame
 
-from app.services.prediction import PredictorBase
+from app.predictors.base import PredictorBase
 
 
 class PredictorDummy(PredictorBase):
     def __init__(self, df: DataFrame) -> None:
         super().__init__(df)
 
-    def predict(self) -> DataFrame:
+    def predict(self) -> Dict:
+        res = self._df.iloc[-1]["close"]
+
         result = {
-            "next" : self._df.iloc[-1]["close"]
+            "next" : res.item(),
+            "timestamp" : datetime.now(tz=timezone.utc),
         }
-        df = pd.DataFrame(result)
-        return df
+
+        return result

@@ -47,8 +47,7 @@ class PredictionService:
     def predict(self, request: PredictionRequest) -> PredictionResponse:
         predictor_factory = PredictorFactory(self._sql_config)
         predictor = predictor_factory.create_predictor(request)
-        df = predictor.predict()
-        csv = df.to_csv(index=False)
-        return PredictionResponse(csv=csv)
+        res = predictor.predict()
+        return PredictionResponse(result=res)
 
 

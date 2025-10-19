@@ -1,3 +1,4 @@
+from typing import Dict
 from pydantic import BaseModel
 
 
@@ -6,4 +7,4 @@ class PredictionRequest(BaseModel):
     csv: str | None
 
 class PredictionResponse(BaseModel):
-    csv: str | None
+    result: Dict | None
