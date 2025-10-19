@@ -1,15 +1,37 @@
 import os
-import uuid
-from datetime import datetime, timezone
-
 import psycopg2 as psycopg
 import pandas as pd
+
+from datetime import datetime, timezone
+from uuid import UUID
+from typing import Any
+from dataclasses import dataclass
 from sqlalchemy import create_engine
-
 from app.configuration.config import PgSqlSettings
-from app.models.data.persistent_model import PersistentModel
+
+@dataclass
+class PersistentModel:
+    id: UUID
+    time_utc: datetime
+    version: int
+    model_type: str
+    file_name: str
+    description: str
+    content: bytes
+
+    @staticmethod
+    def from_dict(model: dict[str, Any]) -> "PersistentModel":
+        return PersistentModel(
+            id=model['id'],
+            time_utc=model['time_utc'],
+            version=model['version'],
+            model_type=model['model_type'],
+            file_name=model['file_name'],
+            description=model['description'],
+            content=model['content'])
 
 
+# noinspection SqlNoDataSourceInspection
 class PersistentModelsRepository:
 
     def __init__(self, config: PgSqlSettings):
@@ -75,7 +97,7 @@ class PersistentModelsRepository:
                     row_dict[col.name] = row[i]
                 return PersistentModel.from_dict(row_dict)
 
-    def delete_model(self, model_id: uuid) -> None:
+    def delete_model(self, model_id: UUID) -> None:
         with psycopg.connect(
                 dbname=self._config.dbname,
                 user=self._config.user,
@@ -92,7 +114,7 @@ class PersistentModelsRepository:
         next_version = last_version + 1
 
         model = PersistentModel(
-            id=uuid.uuid4(),
+            id=UUID(),
             time_utc=datetime.now(timezone.utc),
             version=next_version,
             model_type=model_type,

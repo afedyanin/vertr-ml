@@ -1,10 +1,17 @@
 from fastapi import APIRouter
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
+from pydantic import BaseModel
 
 from app.configuration.config import PgSqlSettings
-from app.models.request.prediction import PredictionRequest
 from app.services.prediction import PredictionService
+
+class PredictionRequest(BaseModel):
+    model_type: str
+    csv: str | None
+
+class PredictionResponse(BaseModel):
+    csv: str | None
 
 prediction_router = APIRouter()
 
@@ -15,3 +22,4 @@ def predict(request: PredictionRequest) -> JSONResponse:
     response = service.predict(request)
 
     return jsonable_encoder(response)
+
