@@ -10,8 +10,7 @@ prediction_router = APIRouter()
 
 @prediction_router.post('/predict')
 def predict(request: PredictionRequest) -> JSONResponse:
-    #sql_config = PgSqlSettings(_env_file='../app/.env')
-    sql_config = PgSqlSettings()
+    sql_config = PgSqlSettings(_env_file='../app/.env')
     service = PredictionService(sql_config)
     response = service.predict(request)
 

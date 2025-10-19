@@ -1,16 +1,11 @@
 import abc
-
-import pandas as pd
+from pandas import DataFrame
 
 class PredictorBase(abc.ABC):
-    def __init__(self, content: str | None, content_type: str | None) -> None:
-        self._content = content
-        self._content_type = content_type
+    def __init__(self, df: DataFrame) -> None:
+        self._df = df
 
-    def predict(self) -> tuple:
-        result = ""
-        result_type = ""
-
-        return result, result_type
+    def predict(self) -> DataFrame:
+        pass
 
 

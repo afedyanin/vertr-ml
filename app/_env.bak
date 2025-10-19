@@ -1,0 +1,7 @@
+## https://docs.pydantic.dev/latest/concepts/pydantic_settings
+
+PG_DBNAME=vertr
+PG_HOST=localhost
+PG_PORT=5432
+PG_USER=postgres
+PG_PASSWORD=admin

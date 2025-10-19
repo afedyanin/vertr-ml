@@ -9,5 +9,6 @@ class PredictionService:
     def predict(self, request: PredictionRequest) -> PredictionResponse:
         predictor_factory = PredictorFactory(self._sql_config)
         predictor = predictor_factory.create_predictor(request)
-        result, result_type = predictor.predict()
-        return PredictionResponse(content=result, content_type=result_type)
+        df = predictor.predict()
+        json = df.to_json(orient='split')
+        return PredictionResponse(df_json=json)
