@@ -1,27 +1,11 @@
-import abc
 import pandas as pd
 from io import StringIO
 from pandas import DataFrame
 from app.configuration.config import PgSqlSettings
 from app.models.prediction import PredictionRequest, PredictionResponse
+from app.predictors.base import PredictorBase
+from app.predictors.dummy import PredictorDummy
 from app.repositories.persistent_models import PersistentModelsRepository
-
-
-class PredictorBase(abc.ABC):
-    def __init__(self, df: DataFrame) -> None:
-        self._df = df
-
-    def predict(self) -> DataFrame:
-        pass
-
-
-class PredictorDummy(PredictorBase):
-    def __init__(self, df: DataFrame) -> None:
-        super().__init__(df)
-
-    def predict(self) -> DataFrame:
-        return self._df
-
 
 class PredictorFactory:
     def __init__(self, sql_config: PgSqlSettings) -> None:
@@ -30,10 +14,23 @@ class PredictorFactory:
 
     def create_predictor(self, request: PredictionRequest) -> PredictorBase:
         df = pd.read_csv(StringIO(request.csv))
+        df = self._prepare_df(df)
         if request.model_type == "Dummy":
             return self._create_dummy_predictor(df)
         else:
             raise ValueError(f'Predictor type {request.model_type} is not supported')
+
+    @staticmethod
+    def _prepare_df(df: DataFrame) -> DataFrame:
+        df["date_str"] = df["<DATE>"].apply(lambda x: str(x).zfill(6)).astype(str)
+        df["time_str"] = df["<TIME>"].apply(lambda x: str(x).zfill(6)).astype(str)
+        df["datetime_str"] = df["date_str"] + df["time_str"]
+        df["time_utc"] = pd.to_datetime(df["datetime_str"], format='%y%m%d%H%M%S', utc=True)
+        df = df.set_index("time_utc")
+        df.drop(["date_str", "time_str", "datetime_str", "<DATE>", "<TIME>"], axis=1, inplace=True)
+        df.rename(columns={"<OPEN>": "open", "<HIGH>": "high", "<LOW>": "low", "<CLOSE>": "close", "<VOL>": "volume"},
+                  inplace=True)
+        return df
 
     @staticmethod
     def _create_dummy_predictor(df: DataFrame) -> PredictorBase:
