@@ -5,7 +5,7 @@ from pandas import DataFrame
 from app.predictors.base import PredictorBase
 
 
-class PredictorDummy(PredictorBase):
+class PredictorLastKnownValue(PredictorBase):
     def __init__(self, df: DataFrame) -> None:
         super().__init__(df)
 

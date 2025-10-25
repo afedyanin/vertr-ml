@@ -4,7 +4,7 @@ from pandas import DataFrame
 from app.configuration.config import PgSqlSettings
 from app.models.prediction import PredictionRequest, PredictionResponse
 from app.predictors.base import PredictorBase
-from app.predictors.dummy import PredictorDummy
+from app.predictors.last_known_value import PredictorLastKnownValue
 from app.repositories.persistent_models import PersistentModelsRepository
 
 class PredictorFactory:
@@ -15,8 +15,8 @@ class PredictorFactory:
     def create_predictor(self, request: PredictionRequest) -> PredictorBase:
         df = pd.read_csv(StringIO(request.csv))
         df = self._prepare_df(df)
-        if request.model_type == "Dummy":
-            return self._create_dummy_predictor(df)
+        if request.model_type == "LastKnownValue":
+            return self._create_last_known_value_predictor(df)
         else:
             raise ValueError(f'Predictor type {request.model_type} is not supported')
 
@@ -33,11 +33,11 @@ class PredictorFactory:
         return df
 
     @staticmethod
-    def _create_dummy_predictor(df: DataFrame) -> PredictorBase:
+    def _create_last_known_value_predictor(df: DataFrame) -> PredictorBase:
         # last_model = self._models_repo.get_model_by_algo_name(algo)
         # fio = io.BytesIO(last_model.content)
         # model = ALGOS[last_model.algo].load(fio)
-        return PredictorDummy(df)
+        return PredictorLastKnownValue(df)
 
 
 class PredictionService:
