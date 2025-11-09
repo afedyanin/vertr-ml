@@ -10,7 +10,7 @@ app.include_router(prediction_router, prefix="/prediction")
 @app.get('/index')
 def index():
     return {
-        'project_name': 'project name',
+        'project_name': 'vertr-ml',
         'webmaster': 'anfemail@gmail.com',
         'created': '2025-02-02'
     }
