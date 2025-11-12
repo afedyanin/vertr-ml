@@ -63,3 +63,8 @@
 - [Time Series Forecasting in Python](https://github.com/marcopeix/TimeSeriesForecastingInPython)
 - [Practical Statistics for Data Scientists](https://github.com/gedeck/practical-statistics-for-data-scientists)
 - [Pandas Workout](https://github.com/reuven/pandas-workout)
+
+### Models
+
+- [Модели GARCH](https://mlgu.ru/1778/?utm_source=google&utm_medium=organic)
+- 
