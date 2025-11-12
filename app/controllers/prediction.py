@@ -1,6 +1,7 @@
 import random
 from typing import List
 
+import numpy as np
 import pandas as pd
 from fastapi import APIRouter
 from fastapi.encoders import jsonable_encoder
@@ -32,9 +33,14 @@ def predict(request: List[Candle]) -> JSONResponse:
     df = pd.DataFrame(data_for_df)
     mean = df["close"].mean()
     std = df["close"].std()
+    if np.isnan(std):
+        std = 0
+
     sign = random.choice([-1, 1])
     price = mean + std * sign
     last_candle = request[-1]
+
+    # print(f'price={price}, last_candle={last_candle}')
     result = PredictionResult(predicted_price=price, time_utc=last_candle.time_utc, signal= None)
     return jsonable_encoder(result)
 
