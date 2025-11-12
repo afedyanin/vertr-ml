@@ -19,6 +19,6 @@ class Candle (BaseModel):
     volume: float
 
 class PredictionResult(BaseModel):
-    time_utc: datetime
+    time_utc: datetime | None
     predicted_price: float | None
     signal: int | None

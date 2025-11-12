@@ -1,8 +1,3 @@
-import random
-from typing import List
-
-import numpy as np
-import pandas as pd
 from fastapi import APIRouter
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
@@ -20,27 +15,4 @@ def predict(request: PredictionRequest) -> JSONResponse:
     response = service.predict(request)
 
     return jsonable_encoder(response)
-
-@prediction_router.post('/predict-by-last-value')
-def predict(request: Candle) -> JSONResponse:
-    result = PredictionResult(predicted_price=request.close, time_utc=request.time_utc, signal= None)
-    return jsonable_encoder(result)
-
-@prediction_router.post('/random-walk')
-def predict(request: List[Candle]) -> JSONResponse:
-    # TODO: Fix me
-    data_for_df = [vars(candle) for candle in request]
-    df = pd.DataFrame(data_for_df)
-    mean = df["close"].mean()
-    std = df["close"].std()
-    if np.isnan(std):
-        std = 0
-
-    sign = random.choice([-1, 1])
-    price = mean + std * sign
-    last_candle = request[-1]
-
-    # print(f'price={price}, last_candle={last_candle}')
-    result = PredictionResult(predicted_price=price, time_utc=last_candle.time_utc, signal= None)
-    return jsonable_encoder(result)
 

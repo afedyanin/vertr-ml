@@ -2,9 +2,11 @@ import uvicorn
 from fastapi import FastAPI, Depends
 
 from app.controllers.prediction import prediction_router
+from app.controllers.stats_forecast import stats_forecast_router
 
 app = FastAPI()
-app.include_router(prediction_router, prefix="/prediction")
+#app.include_router(prediction_router, prefix="/prediction")
+app.include_router(stats_forecast_router, prefix="/stats-forecast")
 
 
 @app.get('/index')
