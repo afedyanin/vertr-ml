@@ -2,7 +2,7 @@ import pandas as pd
 from io import StringIO
 from pandas import DataFrame
 from app.configuration.config import PgSqlSettings
-from app.models.prediction import PredictionRequest, PredictionResponse
+from app.models.nixtla_models import PredictionRequest, PredictionResponse
 from app.predictors.base import PredictorBase
 from app.predictors.last_known_value import PredictorLastKnownValue
 from app.repositories.persistent_models import PersistentModelsRepository

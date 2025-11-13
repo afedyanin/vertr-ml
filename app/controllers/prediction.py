@@ -3,7 +3,7 @@ from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 
 from app.configuration.config import PgSqlSettings
-from app.models.prediction import PredictionRequest, Candle, PredictionResult
+from app.models.nixtla_models import PredictionRequest, Candle, PredictionResult
 from app.services.prediction import PredictionService
 
 prediction_router = APIRouter()
