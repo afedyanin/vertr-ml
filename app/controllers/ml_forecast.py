@@ -1,27 +1,33 @@
 from fastapi import APIRouter
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
-from statsforecast import StatsForecast
+from mlforecast import MLForecast
+from mlforecast.target_transforms import Differences
 
 from app.models.nixtla_models import ForecastRequest, series_to_df, keys_to_stats_models, df_to_forecast_items, \
-    statsforecast_all_models
+    mlforecast_all_models, keys_to_ml_models
 
 '''
 https://nixtlaverse.nixtla.io/statsforecast/src/core/models.html
 '''
-stats_forecast_router = APIRouter()
+ml_forecast_router = APIRouter()
 
-@stats_forecast_router.post('')
+@ml_forecast_router.post('')
 def forecast(request: ForecastRequest) -> JSONResponse:
     df = series_to_df(request.series)
-    models = keys_to_stats_models(request.models)
-    sf = StatsForecast(models=models, freq='min')
-    sf.fit(df=df)
-    forecast_df = sf.predict(h=1)
+    models = keys_to_ml_models(request.models)
+    mlf = MLForecast(
+        models=models,
+        freq='min',
+        lags=[1],
+        target_transforms=[Differences([1])],
+    )
+    mlf.fit(df=df)
+    forecast_df = mlf.predict(h=1)
     items = df_to_forecast_items(forecast_df, request.models)
     return jsonable_encoder(items)
 
-@stats_forecast_router.get('/all-keys')
+@ml_forecast_router.get('/all-keys')
 def get_all_keys() -> JSONResponse:
-    return jsonable_encoder(statsforecast_all_models)
+    return jsonable_encoder(mlforecast_all_models)
 
