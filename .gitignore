@@ -163,3 +163,4 @@ cython_debug/
 .idea/
 airflow/logs/
 training/logs/
+notebooks/nixtla/lightning_logs/
