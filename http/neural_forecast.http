@@ -1,0 +1,42 @@
+### GET model keys
+GET http://127.0.0.1:8081/neural-forecast/all-keys
+
+
+### POST forecast AutoLSTM
+POST http://127.0.0.1:8081/neural-forecast/AutoLSTM
+Content-Type: application/json
+
+[
+    {"unique_id": "SBER", "ds": "2020-11-01T14:45:00", "y": 100.0},
+    {"unique_id": "SBER", "ds": "2020-11-01T14:46:00", "y": 120.0},
+    {"unique_id": "SBERP", "ds": "2020-11-01T14:50:00", "y": 160.0},
+    {"unique_id": "SBERP", "ds": "2020-11-01T14:51:00", "y": 170.0},
+    {"unique_id": "SBER", "ds": "2020-11-01T14:47:00", "y": 130.0},
+    {"unique_id": "SBER", "ds": "2020-11-01T14:49:00", "y": 150.0},
+    {"unique_id": "SBER", "ds": "2020-11-01T14:50:00", "y": 160.0},
+    {"unique_id": "SBER", "ds": "2020-11-01T14:51:00", "y": 170.0},
+    {"unique_id": "SBER", "ds": "2020-11-01T14:52:00", "y": 180.0},
+    {"unique_id": "SBERP", "ds": "2020-11-01T14:49:00", "y": 150.0},
+    {"unique_id": "SBERP", "ds": "2020-11-01T14:52:00", "y": 180.0},
+    {"unique_id": "SBER", "ds": "2020-11-01T14:48:00", "y": 140.0}
+]
+
+### POST forecast AutoRNN
+POST http://127.0.0.1:8081/neural-forecast/AutoRNN
+Content-Type: application/json
+
+[
+    {"unique_id": "SBER", "ds": "2020-11-01T14:45:00", "y": 100.0},
+    {"unique_id": "SBER", "ds": "2020-11-01T14:46:00", "y": 120.0},
+    {"unique_id": "SBERP", "ds": "2020-11-01T14:50:00", "y": 160.0},
+    {"unique_id": "SBERP", "ds": "2020-11-01T14:51:00", "y": 170.0},
+    {"unique_id": "SBER", "ds": "2020-11-01T14:47:00", "y": 130.0},
+    {"unique_id": "SBER", "ds": "2020-11-01T14:49:00", "y": 150.0},
+    {"unique_id": "SBER", "ds": "2020-11-01T14:50:00", "y": 160.0},
+    {"unique_id": "SBER", "ds": "2020-11-01T14:51:00", "y": 170.0},
+    {"unique_id": "SBER", "ds": "2020-11-01T14:52:00", "y": 180.0},
+    {"unique_id": "SBERP", "ds": "2020-11-01T14:49:00", "y": 150.0},
+    {"unique_id": "SBERP", "ds": "2020-11-01T14:52:00", "y": 180.0},
+    {"unique_id": "SBER", "ds": "2020-11-01T14:48:00", "y": 140.0}
+]
+

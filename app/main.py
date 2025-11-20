@@ -2,12 +2,17 @@ import uvicorn
 from fastapi import FastAPI
 
 from app.controllers.ml_forecast import ml_forecast_router
+from app.controllers.neural_forecast import neural_forecast_router
 from app.controllers.stats_forecast import stats_forecast_router
 
 app = FastAPI()
 app.include_router(stats_forecast_router, prefix="/stats-forecast")
 
 app.include_router(ml_forecast_router, prefix="/ml-forecast")
+
+app.include_router(neural_forecast_router, prefix="/neural-forecast")
+
+
 @app.get('/index')
 def index():
     return {
