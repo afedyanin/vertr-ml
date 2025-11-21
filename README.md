@@ -2,6 +2,15 @@
 
 ## ML prediction models for Vertr platform
 
+### Kalman
+
+- [Using a Kalman filter for predicting stock prices in python](https://github.com/herzog-ch/stock-prediction-using-kalman-in-python)
+- [pykalman](https://github.com/pykalman/pykalman)
+- [Фильтр Калмана — это легко](https://habr.com/ru/companies/singularis/articles/516798/)
+- [Простая модель адаптивного фильтра Калмана средствами Python](https://habr.com/ru/articles/328146/)
+- [Kalman filter in stock trading](https://medium.com/intro-to-artificial-intelligence/kalman-filter-in-stock-trading-552e1e4b2dfb)
+
+
 ### HMM
 
 - [Hidden Markov Models for Stock Market Prediction](https://arxiv.org/abs/2310.03775)
